@@ -1,0 +1,62 @@
+<script type="text/javascript"
+     src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+<font size="6" color="Magenta">TSAT: Tilted Rectangular Cavity Library Block</font>
+<br>
+<p>Reference for the information in this help file: Incropera, F.P., and DeWitt, D.P., Fundamentals of Heat and Mass Transfer, John Wiley & Sons, New York, NY, 2002. Print. <p>
+<p>This block estimates the average Nusselt number of free convection within a tilted rectangular cavity.  Two opposite surfaces are heated and cooled while the horizontal surfaces are adiabatic. The flow motion is characterized by a combination of recirculating or cellular flow and roll structures. The transitions between these two types of fluid motion typically occurs at a critical tilt angle. The critcal tilt angle is provided in the following table:<p>
+<font size="5" color="Blue"> Critical Angle for Tilted Rectangular Cavities:</font>
+<table border="1"> <tr><td>H/L</td><td>1</td><td>3</td><td>6</td><td>12</td><td>>12</td></tr>
+    <tr><td>$$\tau^*$$</td><td>$$25^o$$</td><td>$$53^o$$</td><td>$$60^o$$</td><td>$$67^o$$</td><td>$$70^o$$</td></tr>
+</table>
+<br>
+<p>Not that H/L is the aspect ratio or the ratio of the hieght of the cavity to the distance between the hot and cold surfaces on opposite sides. For large aspect ratios (H/L >= 12), and tilt angle less than the critical tilt angle, Holland proposes use of the following correlation:<p>
+<p>K. G. T. Hollands, S. E. Unny, G. D. Raithby, and L. Konicek, J. Heat Transfer, 98, 189, 1976.<p>
+$$
+Nu = 1 + 1.44 \left[1 - \frac{1708}{Ra \: cos\tau} \right]' \left[ 1 - \frac{1708 \left( sin1.8\tau \right)^{1.6} }{Ra \: cos\tau} \right] + \left[ \left( \frac{Ra \: cos\tau}{5830} \right)^{1/3} - 1 \right]', \: \: \left( H/L \geq 12, \: 0 < \tau \leq \tau^* \right)
+$$
+<p>where<p>
+$$
+Nu = Nusselt \: number, \: Ra = Rayliegh \: number, \: \tau = tilt \: angle, \: \tau^* = critical \: tilt \: angle
+$$
+$$
+and \: \left[ \: \right]' impllies \: that \: if \: the \: quantity \: negative \: then \: it \: must \: be \: set \: equal \: to \: 0
+$$
+<p>The reason for the aposterphe operator is to enforce that there is no flow within the cavity if Ra is below the critical Rayliegh number:
+$$
+Ra < 1708/cos\tau
+$$
+<p>For small aspect ratios Catton suggest that reasonable approximation can be made with the following correlation:<p>
+<p>L. P. Catton, "Natural Convect in Enclosures," Proc. 6th Int. Heat Transfer Conf., Toronto, Canada. 1978, Vol. 6, pp. 13-31.<p>
+$$
+Nu = Nu\left(\tau = 0^o\right) \left[ \frac{Nu\left(\tau = 90^o\right)}{Nu\left(\tau = 0^o\right)} \right]^{\tau/\tau^*} \left( sin\tau^* \right)^{\tau/4\tau^*}, \: \: \left( H/L \leq 12, \: 0 < \tau \leq \tau^* \right)
+$$
+<p>Beyond the critical tilt angle the following correlations from Ayyaswamy and Ctton and Arnold have been recommended:<p>
+<p>P. S. Ayyaswamy, and I. Catton, J. Heat Transfer, 95, 543, 1973.<p>
+<p>J. N. Arnold, I. Catton, and D. K. Edwards, "Experimental Investigation of Natural Convection in Inclined Rectangular Regions of Differeing Aspect Ratios," ASME Paper 75-HT-62, 1975.<p>
+$$
+Nu = Nu\left(\tau = 90^o\right) \left( sin\tau \right)^{1/4}, \: \: \left(\tau^* \leq \tau < 90\right)
+$$
+$$
+Nu = 1 + \left[ Nu\left(\tau = 90^o\right) - 1 \right] sin\tau , \: \: \left(90 < \tau \leq 180\right)
+$$
+<p>The angle should be between 0 and 180 degrees. All fluid properrties should be evaluated at average of the hot and cold surfaces. The Rayliegh number should be calculated using L, the distance between the hot and cold surfaces, as the characteristic length. Likewise, this should be the characteristic length associated with the computed Nusselt number.
+<p>This block is capable of performing multiple calculations given 1-D arrays of consistent size for the inputs and parameters.<p>
+
+<font size="5" color="Blue"> Tilted Rectangular Cavity Inputs:</font>
+<table border="1"> <tr><td>Tilted Rectangular Cavity Inputs</td><td>Description</td></tr>
+    <tr><td>Ra</td><td>Rayliegh number [nx1]</td></tr>
+    <tr><td>Angle (deg)</td><td>Angle the cavity is tilted in degrees. This value should be between 0 and 180 degrees. [nx1]</td></tr>
+</table>
+<br>
+<font size="5" color="Blue"> Tilted Rectangular Cavity Outputs:</font>
+<table border="1"> <tr><td>Tilted Rectangular Cavity Outputs</td><td>Description</td></tr>
+    <tr><td>Nu</td><td>Average Nusselt number [nx1]</td></tr>
+</table>
+<br>
+<font size="5" color="Blue"> Tilted Rectangular Cavity Masked Variables:</font>
+<table border="1"> <tr><td>Tilted Rectangular Cavity Masked Variables</td><td>Description</td></tr>
+    <tr><td>AR_M</td><td>Aspect ratio of the rectangular cavity (H/L) where H is the height of L is the distance between the hot and cold walls [nx1]</td></tr>
+</table>
+<br>

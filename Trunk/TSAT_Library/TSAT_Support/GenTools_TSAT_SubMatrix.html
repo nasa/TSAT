@@ -1,0 +1,27 @@
+<script type="text/javascript"
+     src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+<font size="6" color="Magenta">TSAT: Sub-Matrix (2D) Library Block</font>
+<br>
+<p>This block returns a sub-matrix within the input matrix given the row and column indices the define the sub-matrix. This block is meant for 2D matrices and will work for 1D arrays as well.<p>
+<p>To avoid errors, observe some restrictions. The input matrix, MAT, must be a 1-D or 2-D array. The starting and ending indexes for the rows and columns (R1_M, R2_M, C1_M, C2_M) must be real, finite, postive, integer scalars. Also the row indexes may not exceed the number of rows in MAT and the column indexes may not exceed the number of columns in MAT. Furthermore, The ending indexes must be greater than or equal to the starting indexes (R2_M >= R1_M, C2_M >= C1_M).<p>
+
+<font size="5" color="Blue"> Sub-Matrix (2D) Inputs:</font>
+<table border="1"> <tr><td>Sub-Matrix (2D) Inputs</td><td>Description</td></tr>
+    <tr><td>MAT</td><td>1-D or 2-D Array (Matrix) [nxm]</td></tr>
+</table>
+<br>
+<font size="5" color="Blue"> Sub-Matrix (2D) Outputs:</font>
+<table border="1"> <tr><td>Sub-Matrix (2D) Outputs</td><td>Description</td></tr>
+    <tr><td>subMAT</td><td>Sub-matrix within MAT corresponding to the given row and column indexes [(R2_M-R1_M)+1 x (C2_M-C1_M)+1]</td></tr>
+</table>
+<br>
+<font size="5" color="Blue">Sub-Matrix (2D) Masked Variables:</font>
+<table border="1"> <tr><td>Sub-Matrix(2D) Masked Variables</td><td>Description</td></tr>
+    <tr><td>R1_M</td><td>Starting row index [1x1]</td></tr>
+    <tr><td>R2_M</td><td>Ending row index [1x1]</td></tr>
+    <tr><td>C1_M</td><td>Starting column index [1x1]</td></tr>
+    <tr><td>C2_M</td><td>Ending column index [1x1]</td></tr>
+</table>
+<br>

@@ -1,0 +1,46 @@
+<script type="text/javascript"
+     src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+<font size="6" color="Magenta">TSAT: Vertical Plate Laminar Free Convection - Analytical Library Block</font>
+<br>
+<p>Reference for the information in this help file: Incropera, F.P., and DeWitt, D.P., Fundamentals of Heat and Mass Transfer, John Wiley & Sons, New York, NY, 2002. Print. <p>
+<p>This block estimates the average Nusselt number of free convecting flow past one side of an isothermal vertical flat plate or vertical surface. The average Nusselt number is calculated based on an analytical solution for and isothermal vertical surface in an extensive quiescent medium. The following boundary conditions apply:<p>
+$$
+y = 0: \: u = v = 0, \: T = T_{s}
+$$
+$$
+y \rightarrow \infty: \: u \rightarrow 0, \: T \rightarrow T_{\infty}
+$$
+<p>where<p>
+$$
+u = the \: velocity \: in \: the \: vertical  \: direction, \: v = the \: velocity \: in \: the \: horizontal \: direction
+$$
+$$
+T_{s} = temperature \: of \: the \: surface, \: T_{\infty} = temperature \: of \: the \: quiescent \: medium
+$$
+<p>The solution is:<p>
+$$
+Nu = \frac{4}{3} \left( \frac{Gr}{4} \right)^{1/4} g(Pr)
+$$
+<p>where<p>
+$$
+g(Pr) = \frac{0.75 Pr^{1/2}}{ \left( 0.609 + 1.221 Pr^{1/2} + 1.238 Pr \right)^{1/4} }
+$$
+<p>Gr is the Grashof number and Pr is the Prandtl number. Note that this solution comes from the following references<p>
+<p>S. Ostrach, "An Analysis of Laminar Free Convection Flow and Heat Transfer About a Flat Plate Parallel to the Direaction of the Generating Body Force," National Advisory Committee for Aeronautics, Report 1111, 1953.<p>
+<p>E. J. LeFerve, "Laminar Free Convection from a Vertical Plane Surface," Proc. Ninth Int. Congr. Apple. Mech., Brussels, Vol. 4, 168, 1956.<p>
+<p>Note that all fluid properties should be evaluated at film temperature (average of the bulk fluid and surface temperatures). The characteristic length used for the Grashof number should be the length of the plate or surface. Keep in mind that this solution is only applicable to laminar flow which typically occurs when the Rayliegh number (Ra) is less than 10^9. This block is capable of performing multiple calculations given 1-D arrays of consistent size for the inputs.<p>
+
+<font size="5" color="Blue"> Vertical Plate Laminar Free Convection - Analytical Inputs:</font>
+<table border="1"> <tr><td>Vertical Plate Laminar Free Convection - Analytical Inputs</td><td>Description</td></tr>
+    <tr><td>Gr</td><td>Grashof number [nx1]</td></tr>
+    <tr><td>Pr</td><td>Prandtl number [nx1]</td></tr>
+</table>
+<br>
+<font size="5" color="Blue"> Vertical Plate Laminar Free Convection - Analytical Outputs:</font>
+<table border="1"> <tr><td>Vertical Plate Laminar Free Convection - Analytical Outputs</td><td>Description</td></tr>
+    <tr><td>Nu</td><td>Average Nusselt number [nx1]</td></tr>
+    <tr><td>Validity</td><td>Variable indicating if the transition Rayleigh number (10^9) was exceeded making the calculation invalid. This value will be 1 if this condition is viloated and 0 otherwise. [nx1]</td></tr>
+</table>
+<br>

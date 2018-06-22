@@ -1,0 +1,25 @@
+<script type="text/javascript"
+     src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+<font size="6" color="Magenta">TSAT: 2D Linear Interpolation Library Block</font>
+<br>
+<p>This block performs linear interpolation on a set of data (x_data, y_data, z_data) at interpolation points defined in the arrays x_int, and y_int. The inputs must be the appropriate dimensions which are noted in the tables below. If incorrect dimension are specified then z_int will be output as an array of ones the size of x_int and a warning will be printed to the screen. The independent data arrays, x_data and y_data, must be monotonically increasing. If x_int and or y_int have values in it that are outside the range of x_data or y_data respectively, then z_int will be assigned the value of the z_data array at the closest data point or interpolated based on data from the closest row or column of data when applicable. <p>
+<font size="5" color="Blue"> 2D Linear Interpolation Inputs:</font>
+<table border="1"> <tr><td> 2D Linear Interpolation Inputs</td><td>Description</td></tr>
+    <tr><td>x_data</td><td>1-D array of data corresponding to the independent variable on the columns of z_data [nx1]</td></tr>
+    <tr><td>y_data</td><td>1-D array of data corresponding to the independent variable on the rows of z_data [mx1]</td></tr>
+    <tr><td>z_data</td><td>2-D array of data corresponding to the dependent variable that is a function of x and y [nxm]</td></tr>
+    <tr><td>x_int</td><td>1-D array of interpolation points corresponding to x_data [px1]</td></tr>
+    <tr><td>y_int</td><td>1-D array of interpolation points corresponding to y_data [px1]</td></tr>
+</table>
+<br>
+<font size="5" color="Blue"> 2D Linear Interpolation Outputs:</font>
+<table border="1"> <tr><td>2D Linear Interpolation Outputs</td><td>Description</td></tr>
+    <tr><td>z_int</td><td>1-D array of interpolated values corresponding to the dependent variable for the interpolation points (x_int,y_int) [px1]</td></tr>
+</table>
+<br>
+<font size="5" color="Blue"> 2D Linear Interpolation Mask Variables: </font>
+<table border="1"> <tr><td> 2D Linear Interpolation Mask Variables</td><td>Description</td></tr>
+    <tr><td>BN_M</td><td>Block name (hidden variable that is used in warning messages)</td></tr>
+</table>

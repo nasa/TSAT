@@ -1,0 +1,56 @@
+<script type="text/javascript"
+     src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+<font size="6" color="Magenta">TSAT: Ideal Gas Heat Capacity Library Block</font>
+<br>
+<p>Reference for the information in this help file: Cengal, Y.A., and Boles, M.A., Thermodynamics: An Engineering Approach 7th Ed., McGraw-Hill, New York, NY, 2011. Print. <p>
+<p>This block estimates the heat capacity of and ideal gas using the following cubic polynomial fit:<p>
+$$
+C_{p} = a + bT + cT^{2} + dT^{3}
+$$
+<p>where a, b, c, and d are constants dependent on the gas. Constants for some common gases are provided in the following table:<p>
+<font size="5" color="Blue"> Fitted Constants for Various Gases (Cp in kJ/(kmol-K), T in K):</font>
+<table border="1"> <tr><td>Gas</td><td>Formula</td><td>$$a$$</td><td>$$b (\times 10^{-2})$$</td><td>$$c (\times 10^{-5})$$</td><td>$$d (\times 10^{-9})$$</td><td> Temperature Range (K)</td><td>% Error (Max, Avg)</td></tr>
+    <tr><td>Nitrogen</td><td>$$ N_{2} $$</td><td>28.90</td><td>-0.1571</td><td>0.8081</td><td>-2.873</td><td>273-1800</td><td>0.59, 0.34</td></tr>
+    <tr><td>Oxygen</td><td>$$ O_{2} $$</td><td>25.48</td><td>1.520</td><td>-0.7155</td><td>1.312</td><td>273-1800</td><td>1.19, 0.28</td></tr>
+    <tr><td>Air</td><td>$$ -- $$</td><td>28.11</td><td>0.1967</td><td>0.4802</td><td>-1.966</td><td>273-1800</td><td>0.72, 0.33</td></tr>
+    <tr><td>Hydrogen</td><td>$$ H_{2} $$</td><td>29.11</td><td>-0.1916</td><td>0.4003</td><td>-0.8704</td><td>273-1800</td><td>1.01, 0.26</td></tr>
+    <tr><td>Carbon Monoxide</td><td>$$ CO $$</td><td>28.16</td><td>0.1675</td><td>0.5372</td><td>-2.222</td><td>273-1800</td><td>1.89, 0.37</td></tr>
+    <tr><td>Carbon Dioxide</td><td>$$ CO_{2} $$</td><td>22.26</td><td>5.981</td><td>-3.501</td><td>7.469</td><td>273-1800</td><td>0.67, 0.22</td></tr>
+    <tr><td>Water Vapor</td><td>$$ H_{2}O $$</td><td>32.24</td><td>0.1923</td><td>1.055</td><td>-3.595</td><td>273-1800</td><td>0.53, 0.24</td></tr>
+    <tr><td>Nitric Oxide</td><td>$$ NO $$</td><td>29.34</td><td>-0.09395</td><td>0.9747</td><td>-4.187</td><td>273-1500</td><td>0.97, 0.36</td></tr>
+    <tr><td>Nitrous Oxide</td><td>$$ N_{2}O $$</td><td>24.11</td><td>5.8632</td><td>-3.562</td><td>10.58</td><td>273-1500</td><td>0.59, 0.26</td></tr>
+    <tr><td>Nitrogen Dioxide</td><td>$$ NO_{2} $$</td><td>22.9</td><td>5.715</td><td>-3.52</td><td>7.87</td><td>273-1500</td><td>0.46, 0.18</td></tr>
+    <tr><td>Ammonia</td><td>$$ NH_{3} $$</td><td>27.568</td><td>2.5630</td><td>0.99072</td><td>-6.6909</td><td>273-1500</td><td>0.91, 0.36</td></tr>
+    <tr><td>Sulfur</td><td>$$ S_{2} $$</td><td>27.21</td><td>2.218</td><td>-1.628</td><td>3.986</td><td>273-1800</td><td>0.99, 0.38</td></tr>
+    <tr><td>Sulfur Dioxide</td><td>$$ SO_{2} $$</td><td>25.78</td><td>5.795</td><td>-3.812</td><td>8.612</td><td>273-1800</td><td>0.45, 0.24</td></tr>
+    <tr><td>Sulfur Trioxide</td><td>$$ SO_{3} $$</td><td>16.40</td><td>14.58</td><td>-11.20</td><td>32.42</td><td>273-1300</td><td>0.29, 0.13</td></tr>
+    <tr><td>Acetylene</td><td>$$ C_{2}H_{2} $$</td><td>21.8</td><td>9.2143</td><td>-6.527</td><td>18.21</td><td>273-1500</td><td>1.46, 0.59</td></tr>
+    <tr><td>Benzene</td><td>$$ C_{6}H_{6} $$</td><td>-36.22</td><td>48.475</td><td>-31.57</td><td>77.62</td><td>273-1500</td><td>0.34, 0.20</td></tr>
+    <tr><td>Methanol</td><td>$$ CH_{4}O $$</td><td>19.0</td><td>9.152</td><td>-1.22</td><td>-8.039</td><td>273-1000</td><td>0.18, 0.08</td></tr>
+    <tr><td>Ethanol</td><td>$$ C_{2}H_{6}O $$</td><td>19.9</td><td>20.96</td><td>-10.38</td><td>20.05</td><td>273-1500</td><td>0.4, 0.22</td></tr>
+    <tr><td>Hydrogen Chloride</td><td>$$ HCl $$</td><td>30.33</td><td>-0.7620</td><td>1.327</td><td>-4.338</td><td>273-1500</td><td>0.22, 0.08</td></tr>
+    <tr><td>Methane</td><td>$$ CH_{4} $$</td><td>19.89</td><td>5.024</td><td>1.269</td><td>-11.01</td><td>273-1500</td><td>1.33, 0.57</td></tr>
+    <tr><td>Ethane</td><td>$$ C_{2}H_{6} $$</td><td>6.900</td><td>17.27</td><td>-6.406</td><td>7.285</td><td>273-1500</td><td>0.83, 0.28</td></tr>
+    <tr><td>Propane</td><td>$$ C_{3}H_{8} $$</td><td>-4.04</td><td>30.48</td><td>-15.72</td><td>31.74</td><td>273-1500</td><td>0.4, 0.12</td></tr>
+    <tr><td>n-Butane</td><td>$$ C_{4}H_{10} $$</td><td>3.96</td><td>37.15</td><td>-18.34</td><td>35.00</td><td>273-1500</td><td>0.54, 0.24</td></tr>
+    <tr><td>i-Butane</td><td>$$ C_{4}H_{10} $$</td><td>-7.913</td><td>41.60</td><td>-23.01</td><td>49.91</td><td>273-1500</td><td>0.25, 0.13</td></tr>
+    <tr><td>n-Pentane</td><td>$$ C_{5}H_{12} $$</td><td>6.774</td><td>45.43</td><td>-22.46</td><td>42.29</td><td>273-1500</td><td>0.56, 0.21</td></tr>
+    <tr><td>n-Hexane</td><td>$$ C_{6}H_{14} $$</td><td>6.938</td><td>55.22</td><td>-28.65</td><td>57.69</td><td>273-1500</td><td>0.72, 0.20</td></tr>
+    <tr><td>Ethylene</td><td>$$ C_{2}H_{4} $$</td><td>3.95</td><td>15.64</td><td>-8.344</td><td>17.67</td><td>273-1500</td><td>0.54, 0.13</td></tr>
+    <tr><td>Propylene</td><td>$$ C_{3}H_{6} $$</td><td>3.15</td><td>23.83</td><td>-12.18</td><td>24.62</td><td>273-1500</td><td>0.73, 0.17</td></tr>
+</table>
+<br>
+<p>Note that the temperature range for which the correlation is valid is dependent on the fit.<p>
+<p>This block is capable of performing multiple calculations given a 1-D array of the temperature input.<p>
+
+<font size="5" color="Blue"> Ideal Gas Heat Capacity Inputs:</font>
+<table border="1"> <tr><td>Ideal Gas Heat Capacity Inputs</td><td>Description</td></tr>
+    <tr><td>T</td><td>Temperature of the gas [nx1]</td></tr>
+</table>
+<br>
+<font size="5" color="Blue"> Ideal Gas Heat Capacity Outputs:</font>
+<table border="1"> <tr><td>Ideal Gas Heat Capacity Outputs</td><td>Description</td></tr>
+    <tr><td>Cp</td><td>Heat capacity of the gas [nx1]</td></tr>
+</table>

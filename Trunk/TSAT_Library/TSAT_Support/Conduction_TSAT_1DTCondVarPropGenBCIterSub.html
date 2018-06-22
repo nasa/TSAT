@@ -1,0 +1,43 @@
+<script type="text/javascript"
+     src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+<font size="6" color="Magenta">TSAT: 1-D Trans Conduction Model - Variable Props + Generic BCs Library Block (Iterative Subsystem Capable)</font>
+<br>
+<p>This block is identical to the block <a href="Conduction_TSAT_1DTCondVarPropGenBC.html">1D Trans Conduction model - variable props & general BCs</a> other than a slight modification to make it compatible for use within an iterative subsystem. The memory block which holds the temperature state in <a href="Conduction_TSAT_1DTCondVarPropGenBC.html">1D Trans Conduction model - variable props & general BCs</a> is troublesome for use inside iterative subsystems because as the subsystem iterates the temperature solution will move forward in time while the model outside of the iterative subsystem remains at the same time-step. This can cause inconsistent and erroneous results, particularly for transients. To resolve this issue, the memory block should be moved outside of the block. This allows the temperature matrix to be routed outside of the iterative subsystem into a memory block and then back into the iterative subsystem and into this block as an input. This will effectively provide the temperature solution from the previous iteraiton as an input. Because the memory block has been removed from inside the block the responsibility is on the user to define the initial temperature state in the memory block that is placed outside of the iterative subsystem.<p>
+<font size="5" color="Blue"> 1-D Trans Conduction Model - Variable Props + Generic BCs (Iterative Subsystem Capable) Inputs:</font>
+<table border="1"> <tr><td> 1-D Trans Conduction Model - variable Props + Generic BCs (Iterative Subsystem Capable) Inputs</td><td>Description</td></tr>
+    <tr><td>k</td><td>Thermal conductivity array for the structure (nx1)</td></tr>
+    <tr><td>Cp</td><td>Heat capacity array for the structure (nx1)</td></tr>
+    <tr><td>rho</td><td>Density array for the structure (nx1)</td></tr>
+    <tr><td>Tfin</td><td>Temperature of the fluid on the inner surface (convection boundary condition)</td></tr>
+    <tr><td>hin</td><td>Convective heat transfer coefficient of the fluid on the inner surface (convection boundary condition)</td></tr>
+    <tr><td>Tsin</td><td>Temperature at the surface or interface of with a contacting solid on the inner side (conduction boundary condition)</td></tr>
+    <tr><td>Textin</td><td>Temperature of the external source/sink radiating heat to/from the inner surface (radiation boundary condition)</td></tr>
+    <tr><td>uin</td><td>Radiative heat transfer coefficient between the external source/sink and the inner surface (radiation boundary condition)</td></tr>
+    <tr><td>Tfout</td><td>Temperature of the fluid on the outer surface (convection boundary condition)</td></tr>
+    <tr><td>hout</td><td>Convective heat transfer coefficient of the fluid on the outer surface(convection boundary condition)</td></tr>
+    <tr><td>Tsout</td><td>Temperature at the surface or interface of with a contacting solid on the outer side (conduction boudnary condition)</td></tr>
+    <tr><td>Textout</td><td>Temperature of the external source/sink radiating heat to/from the outer surface (radiation boundary condition)</td></tr>
+    <tr><td>uout</td><td>Radiative heat transfer coefficient between the external source/sink and the outer surface (radiation boundary condition)</td></tr>
+    <tr><td>To</td><td>Temperature array from the previous iteration. This should be the output of the block after being fed through a memory block with initial condition T0_M</td></tr>
+</table>
+<br>
+<font size="5" color="Blue"> 1-D Trans Conduction Model - Variable Props + Generic BCs (Iterative Subsystem Capable) Outputs:</font>
+<table border="1"> <tr><td>1-D Trans Conduction Model - Variable Props + Generic BCs (Iterative Subsystem Capable) Outputs</td><td>Description</td></tr>
+    <tr><td>T</td><td>The current temperature of each node in the structure (nx1)</td></tr>
+</table>
+<br>
+<font size="5" color="Blue"> 1-D Trans Conduction Model - Variable Props + Generic BCs (Iterative Subsystem Capable) Mask Variables: </font>
+<table border="1"> <tr><td> 1-D Trans Conduction Model - Variable Props + Generic BCs (Iterative Subsystem Capable) Mask Variables</td><td>Description</td></tr>
+    <tr><td>x_M</td><td>Spatial discretization (node locations) (nx1)</td></tr>
+    <tr><td>dt_M</td><td>Time Step</td></tr>
+    <tr><td>a_M</td><td>Shape (unchecked - planar (a_M=0), checked - cylindrical (a_M=1))</td></tr>
+    <tr><td>convin_M</td><td>Checked if there is a convection boundary condition on the inner surface</td></tr>
+    <tr><td>radin_M</td><td>Checked if there is a radiation boundary condition on the inner surface</td></tr>
+    <tr><td>condin_M</td><td>Checked if there is a conduction boundary condition on the inner surface</td></tr>
+    <tr><td>convout_M</td><td>Checked if there is a convection boundary condition on the outer surface</td></tr>
+    <tr><td>radout_M</td><td>Checked if there is a radiation boundary condition on the outer surface</td></tr>
+    <tr><td>condout_M</td><td>Checked if there is a conduction boundary condition on the outer surface</td></tr>
+    
+</table>

@@ -1,0 +1,88 @@
+<script type="text/javascript"
+     src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+<font size="6" color="Magenta">TSAT: Impinging Jet Library Block</font>
+<br>
+<p>This block estimates the average Nusselt number for an impinging jet on a surfaces. The implemented correlations were developed by Martin.:<p>
+<p>H. Martin, "Heat and Mass Transfer Between Impinging Gas Jets and Solid Surfaces," in J.P. Hartnett and T.F. Irvine, Jr., Eds., Advances in Heat Transfer, Vol. 13, Academic Press, New York. 1977.<p>
+<p>The correlations presume hat the gas jet exits its nozzle with a uniform velocity, temperature, and species concentration. Thermal and compositional equilibrium with the ambient air are presumed. Conditions are assumed to be uninfluenced by the amount of turbulence at the nozzles and the surface is presumed to be stationary. This block considers round nozzles, and slot nozzles. It also considers a single nozzle or an array of nozzles. The characteristic length is the hydraulic diameter of the nozzle which happens to be the diameter (D) for round nozzles and 2 times the width of the slot (W) for slot nozzles. The employed correlations are listed below.<p>
+<p>Single round nozzle:<p>
+$$
+Nu = G\left( A_r, H/D \right) \left[ 2Re^{1/2} \left( 1 + 0.005Re^{0.55} \right)^{1/2} \right]Pr^{0.42}
+$$
+$$
+A_{r} = \frac{D^2}{4r^2}
+$$
+$$
+G = 2A_{r}^{1/2} \frac{1-2.2A_{r}^{1/2}}{1 + 0.2 \left( H/D - 6 \right)A_{r}^{1/2}}
+$$
+$$
+2000 \leq Re \leq 400000, \: 2 \leq H/D \leq 12, \: 0.004 \leq A_{r} \leq 0.04
+$$
+<p>Array of Round Nozzles:<p>
+$$
+Nu = 0.5K \left( A_{r}, H/D \right) G\left( A_r, H/D \right) Re^{2/3} Pr^{0.42}
+$$
+$$
+A_{r} = \frac{\pi D^2}{4S^2} \: (aligned), \: A_{r} = \frac{\pi D^2}{2 \sqrt{3} S^2} \: (staggered)
+$$
+$$
+K = \left[ 1 + \left( \frac{H/D}{0.6/A_{r}^{1/2}} \right)^{6} \right]^{-0.05}
+$$
+$$
+2000 \leq Re \leq 100000, \: 2 \leq H/D \leq 12, \: 0.004 \leq A_{r} \leq 0.04
+$$
+<p>Single slot nozzle:<p>
+$$
+Nu = \frac{3.06}{0.5/A_r + H/W + 2.78} Re^{m} Pr^{0.42}
+$$
+$$
+A_{r} = W/(2x)
+$$
+$$
+m = 0.695 - \left[ \left( \frac{1}{4A_{r}} \right) + \left( \frac{H}{2W} \right)^{1.33} + 3.06 \right]^{-1}
+$$
+$$
+3000 \leq Re \leq 90000, \: 2 \leq H/W \leq 10, \: 0.025 \leq A_{r} \leq 0.125
+$$
+<p>Array of Slot Nozzle:<p>
+$$
+Nu = \frac{2}{3} A{r,o}^{3/4} \left( \frac{2Re}{A_r/A_{r,o} + A_{r,o}/A_r} \right)^{2/3} Pr^{0.42}
+$$
+$$
+A_{r} = W/S
+$$
+$$
+A_{r,o} = \left[ 60 + 4 \left( \frac{H}{2W} - 2 \right)^2 \right]^{-1/2}
+$$
+$$
+1500 \leq Re \leq 40000, \: 2 \leq H/W \leq 80, \: 0.008 \leq A_{r} \leq 2.5A_{r,o}
+$$
+
+<p>Note that Re is the Reynolds number, Pr is the Prandtl number, H is the distance from the nozzle to the impingment surface, and Ar is a nozzle ratio (the nozzle exit area to the surface area of the cell). For a single nozzle the cell is defined by a radius or distance from the stagnation point which defines the area over which the average Nusselt number is to be calculated for. For nozzle areas, the cell area is equally divided area in which each nozzle resides.<p>
+<p>The units of the parameters in this block must be consistent with each other. This block is capable of performing multiple Nusselt number approximations given 1-D input and parameter arrays of the same size.<p>
+    
+<font size="5" color="Blue"> Impinging Jet Inputs:</font>
+<table border="1"> <tr><td> Impinging Jet Inputs</td><td>Description</td></tr>
+    <tr><td>Re</td><td>Reynolds number [nx1]</td></tr>
+    <tr><td>Pr</td><td>Prandtl number [nx1]</td></tr>
+</table>
+<br>
+<font size="5" color="Blue"> Impinging Jet Outputs:</font>
+<table border="1"> <tr><td>Impinging Jet Outputs</td><td>Description</td></tr>
+    <tr><td>Nu</td><td>Average Nusselt number [nx1]</td></tr>
+    <tr><td>Validity</td><td>Variable indicating if the Re and Pr restictions are violated or not. The value of 1 if a violation is present and 0 otherwise. [nx1]</td></tr>
+</table>
+<br>
+<font size="5" color="Blue"> Impinging Jet Masked Variables:</font>
+<table border="1"> <tr><td>Impinging Jet Masked Variables</td><td>Description</td></tr>
+    <tr><td>RoundOrSlot_M</td><td>Variable indicating whether the nozzle(s) are round or slot nozzles</td></tr>
+    <tr><td>SingleOrArray_M</td><td>Variable indicating whether there is a single nozzle or an array of nozzles</td></tr>
+    <tr><td>AlignOrStag_M</td><td>Variable indicating whether the nozzle are aligned or staggerd (only applicable for round nozzle arrays)</td></tr>
+    <tr><td>H_M</td><td>Distance from the nozzle to the impingement surface [nx1]</td></tr>
+    <tr><td>D_M</td><td>Diameter of the nozzle (D) for round nozzles or the width of the slot nozzle (W) for slot nozzles [nx1]</td></tr>
+    <tr><td>r_M</td><td>Distance from the stagnation point over which the average Nu is desired (r or x) [nx1] (only applicable for single nozzles)</td></tr>
+    <tr><td>S_M</td><td>Pitch of the array (distance between centerpoints the nozzles in an array) [nx1] (only applicable for nozzle arrays)</td></tr>
+</table>
+<br>

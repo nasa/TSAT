@@ -1,0 +1,41 @@
+<script type="text/javascript"
+     src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+<font size="6" color="Magenta">TSAT: Laminar Flat Plate Library Block</font>
+<br>
+<p>Reference for the information in this help file: Incropera, F.P., and DeWitt, D.P., Fundamentals of Heat and Mass Transfer, John Wiley & Sons, New York, NY, 2002. Print. <p>
+<p>This block estimates the Nusselt number of a laminar external flow over an isothermal or isoflux flat plate. It can either calculate the local or average Nusselt number over 1 surface of the plate. The equations is:
+$$
+Nu = CRe^{1/2}Pr^{1/3}
+$$
+<p>where C is a coefficient dependent on scenario:<p>
+<font size="5" color="Blue"> Coefficient Values (C):</font>
+<table border="1"><tr><td>C</td><td>Isothermal</td><td>Isoflux</td></tr>
+    <tr><td>Local Nu</td><td>0.332</td><td>0.453</td></tr>
+    <tr><td>Average Nu</td><td>0.664</td><td>0.906</td></tr>
+</table>
+<br>
+<p>Note that Re is the Reynolds number and Pr is the Prandtl number. If the local Nusselt number is to be computed then the distance from the local point to the leading edge of the plate should be used as the characteristic length in the Reynolds number. If the average Nusselt number is is of interest then the full length of the plate should be used. Note that all fluid properrties should be evaluated at film temperature (average of the bulk fluid and surface temperatures). Beyond the flow being laminar the implemented correlations also requires:<p>
+$$
+Pr \geq 0.6
+$$
+<p>If this contraint is not met then the "Validity" output will be 1, and otherwise will be 0. This block is capable of performing multiple Nusselt number approximations given 1-D input arrays of the same size.<p>
+    
+<font size="5" color="Blue"> Laminar Flat Plate Inputs:</font>
+<table border="1"> <tr><td> Laminar Flat Plate Inputs</td><td>Description</td></tr>
+    <tr><td>Re</td><td>Reynolds number [nx1]</td></tr>
+    <tr><td>Pr</td><td>Prandtl number [nx1] </td></tr>
+</table>
+<br>
+<font size="5" color="Blue"> Laminar Flat Plate Outputs:</font>
+<table border="1"> <tr><td>Laminar Flat Plate Outputs</td><td>Description</td></tr>
+    <tr><td>Nu</td><td>Local or Average Nusselt number [nx1]</td></tr>
+    <tr><td>Validity</td><td>Variable indicating if the result is valid based on the correlation restrictions. The value will be 1 if there is a violation an 0 otherwise. [nx1]</td></tr>
+</table>
+<br>
+<font size="5" color="Blue"> Laminar Flat Plate Parameters Mask Variables: </font>
+<table border="1"> <tr><td> Laminar Flat Plate Parameters Mask Variables</td><td>Description</td></tr>
+    <tr><td>LocalOrAverage_M</td><td>Variable indicating whether the local or average Nu is to be calculated</td></tr>
+    <tr><td>IsothermOrIsoflux_M</td><td>Variable indicating an isothermal or isoflux plate</td></tr>
+</table>

@@ -1,0 +1,76 @@
+<script type="text/javascript"
+     src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+<font size="6" color="Magenta">TSAT: Fluid Energy Balance Library Block</font>
+<br>
+<p>This block attempts to approximate the steady-state temperature of a fluid flowing through a path that is heated/cooled by the solid surfaces that enclose the fluid. The approximation is made by breaking up the domain in the flow direction into a number of control volumes. Then a simple energy balance is performed for each volume starting with the most upstream and ending with the most downstream. The energy equation comes straight from basic thermodynamics.<p>
+$$
+Q + W = \sum_{out} \dot{m} \left( C_p T + \frac{V^2}{2} + gz \right) - \sum_{in} \dot{m} \left( C_p T + \frac{V^2}{2} + gz \right)
+$$
+$$
+Q = heat \: transfer \: into \: the \: system, \: W = work \: into \: the \: system,
+$$
+$$
+C_p = heat \: capacity, \: T = temperature, \: V = velocity,
+$$
+$$
+\dot{m} = mass \: flow \: rate, \: g = acceleration \: due \: to \: gravity,
+$$
+$$
+z = change \: in \: height
+$$
+<p>For this block, the heat transfer is due to the addition/extraction of heat from the surfaces around the fluid through either convection and or radiation. Here the heat transfer can be written as:<p>
+$$
+Q = \sum_M hA \left(T_s - T \right)
+$$
+$$
+h = heat \: transfer \: coefficient, \: A = area \: of \: the \: surface,
+$$
+$$
+T_s = temperature \: of \: the \: surface, \: M = number \: of \: surfaces
+$$
+<p>This block neglects potential energy due to gravity, local kinetic energy as a result of the fluids velocity, and the addition of work. This leaves the main contributors to be enthalpy of the fluid and heat transfer from adjacent surfaces.<p>
+$$
+\sum_M hA \left(T_s - T \right) = \sum_{out} \dot{m} C_p T - \sum_{in} \dot{m} C_p T
+$$
+<p>This makes this block most appropriate for flows which the effects of gravity is negligible, the flow is moving at a relatively low speed, there is no work addition/extraction, but there is significant heat transfer. Below is the equations used to solve for the temperature. It is general to the presence of incoming or outgoing bleeds.<p>
+$$
+T_{out} = \frac{ \dot{m}_{in} C_{p,in} T_{in} + \dot{m}_{bld} C_{p,bld} T_{bld} + \sum_M hA T_s }{ \left( \dot{m}_{in} + \dot{m}_{bld} \right) C_{p,out} + \sum_M hA } \: \: ( \dot{m}_{bld} \geq 0 )
+$$
+$$
+T_{out} = \frac{ \dot{m}_{in} C_{p,in} T_{in} + \dot{m}_{bld} C_{p,in} T_{in} + \sum_M hA T_s }{ \left( \dot{m}_{in} + \dot{m}_{bld} \right) C_{p,out} + \sum_M hA } \: \: ( \dot{m}_{bld} < 0 )
+$$
+<p>where<p>
+$$
+C_p = f(T) \: \: (interpolated \: from \: provided \: data)
+$$
+<p>Note the the subscript 'in' refers to quanties coming into control volume from the upstream flow path and 'bld' refers to quanties associated with any bleed entering or exiting the control volume. Since the heat capacity is a function of temperature and temperature is the output of the function, the block iterates the same calculation several times until the temperature converges to a solution. At the first time-step, the heat capacity of the fluid at all discretized locations is initialized based on the initial inlet temperature which is given as the parameter Tin0_M.<p>
+<p>Assure that all inputs and parameters use consistent units. Also consider that the domain should discretized with enough elements to sufficiently result it. More elements are suggested over fewer elements.<p>
+
+<font size="5" color="Blue"> Fluid Energy Balance Inputs:</font>
+<table border="1"> <tr><td>Fluid Energy Balance Inputs</td><td>Description</td></tr>
+    <tr><td>mdot_in</td><td>Mass flow rate at the inlet [1x1]</td></tr>
+    <tr><td>T_in</td><td>Temperature of the fluid at the inlet [1x1]</td></tr>
+    <tr><td>mdot_bld</td><td>Mass flow rate of the bleeds [nx1]</td></tr>
+    <tr><td>T_bld</td><td>Temperatue of the bleeds [nx1]</td></tr>
+    <tr><td>h</td><td>Heat transfer coefficient. This emcompasses the effects of convection and radiation. It should have as many rows as there are discretized points in x_M and as many columns are there are surfaces contributing to the heat transfer. [NxM]</td></tr>
+    <tr><td>Ts</td><td>Surface temperature. It should have as many rows as there are discretized points in x_M and as many columns are there are surfaces contributing to the heat transfer [NxM]</td></tr>
+</table>
+<br>
+<font size="5" color="Blue"> Fluid Energy Balance Outputs:</font>
+<table border="1"> <tr><td>Fluid Energy Balance Outputs</td><td>Description</td></tr>
+    <tr><td>T</td><td>Array of temperatures correspondings corresponding to the location in x_M. [Nx1]</td></tr>
+</table>
+<br>
+<font size="5" color="Blue"> Fluid Energy Balance Masked Variables:</font>
+<table border="1"> <tr><td>Fluid Energy Balance Masked Variables</td><td>Description</td></tr>
+    <tr><td>x_M</td><td>Discretized locations along flow direction [Nx1]</td></tr>
+    <tr><td>As_M</td><td>Discretized areas of the surfaces that are participating in heat transfer. It should have as many rows as there are discretized points in x_M and as many columns are there are surfaces contributing to the heat transfer. [NxM]</td></tr>
+    <tr><td>Blds_M</td><td>Option for bleeds. Checkbox should be checked if there are bleed coming into or leaving the flow path. Otherwise the box should be unchecked.</td></tr>
+    <tr><td>xbld_M</td><td>Locations in the x-domain of any bleeds [nx1]</td></tr>
+    <tr><td>CpData_M</td><td>1-D array of heat capacity values for interpolation as a function of temperature [mx1]</td></tr>
+    <tr><td>CpData_M</td><td>1-D array of temperature values for interpolation of the heat capacity [mx1]</td></tr>
+    <tr><td>Tin0_M</td><td>The initial temperature at the inlet. This temperature is used to initialize the heat capacity for the first iteration of the block. [1x1]</td></tr>
+</table>
+<br>

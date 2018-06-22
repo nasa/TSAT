@@ -1,0 +1,45 @@
+<script type="text/javascript"
+     src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+<font size="6" color="Magenta">TSAT: Horizontal Plate Free Convection Library Block</font>
+<br>
+<p>Reference for the information in this help file: Incropera, F.P., and DeWitt, D.P., Fundamentals of Heat and Mass Transfer, John Wiley & Sons, New York, NY, 2002. Print. <p>
+<p>This block estimates the average Nusselt number of free convection on the surface of a horizontal plate. Flow patterns and heat transfer are heavily dependent on whether the plate is hot or cold and whether the surface is on the top or the bottom. This block employs different correlations to handle each case. <p>
+<p>For the upper surface of a hot plate or lower surface of a cold plate the following correlations are recommended in the reference:<p>
+<p>J. R. Lloyd, and W. R. Moran, J. Heat Transfer, 96, 443, 1974.<p>
+$$
+Nu = 0.54Ra^{1/4}, \: \: \left( 10^4 \leq Ra \leq 10^7, \: Pr \geq 0.7 \right)
+$$
+$$
+Nu = 0.15Ra^{1/3}, \: \: \left( 10^7 \leq Ra \leq 10^{11}, \: all \: Pr \right)
+$$
+<p>For the lower surface of a hot plate or upper surface of a cold plate the following correlation is recommended by this reference:<p>
+<p>E. Radziemska, and W. M. Lewandowski, Applied Energy, 68, 347, 2001.<p>
+$$
+Nu = 0.52Ra^{1/5}, \: \: \left( 10^4 \leq Ra \leq 10^9, \: Pr \geq 0.7 \right)
+$$
+<p>The characteristic length in the Rayliegh number should be consistent with recommendation for the shape. It was found in the following references that L = A/P can be used for a variety of shapes where A is the surface are of one side of the plate and P is it's perimeter:<p>
+<p>R. J. Goldstein, E. M. Sparrow, and D. C. Jones, Int. J. Heat Mass Transfer. 16. 1025. 1973.<p>
+<p>J. R. Lloyd, and W. R. Moran, J. Heat Transfer, 96, 443, 1974.<p>
+<p>Note that all fluid properties should be evaluated at the film temperature (average of the bulk fluid and surface temperatures). This block is capable of performing multiple calculations given 1-D arrays of consistent size for the inputs. The units of the surface and fluid temperature inputs does not matter. Infact the values themselves do not matter. What does matter is the relative temperature difference which determines if the plate is hotter or colder than the surrounding fluid.<p>
+
+<font size="5" color="Blue"> Horizontal Plate Free Convection Inputs:</font>
+<table border="1"> <tr><td>Horizontal Plate Free Convection Inputs</td><td>Description</td></tr>
+    <tr><td>Ra</td><td>Rayliegh number [nx1]</td></tr>
+    <tr><td>Pr</td><td>Prandtl number [nx1]</td></tr>
+    <tr><td>Ts</td><td>Temperature of the surface [nx1]</td></tr>
+    <tr><td>Tf</td><td>Temperature of the fluid [nx1]</td></tr>
+</table>
+<br>
+<font size="5" color="Blue"> Horizontal Plate Free Convection Outputs:</font>
+<table border="1"> <tr><td>Horizontal Plate Free Convection Outputs</td><td>Description</td></tr>
+    <tr><td>Nu</td><td>Average Nusselt number [nx1]</td></tr>
+    <tr><td>Validity</td><td>Variable indicating if the any of the applicable restrictions were violated. This value will be 1 if this condition is viloated and 0 otherwise. [nx1]</td></tr>
+</table>
+<br>
+<font size="5" color="Blue"> Horizontal Plate Free Convection Mask Variables:</font>
+<table border="1"> <tr><td>Horizontal Plate Free Convection Mask Variables</td><td>Description</td></tr>
+    <tr><td>UpperOrLower_M</td><td>Checked if the upper surface of the plate is to be considered, unchecked if the lower surface of the plate is to be considered.</td></tr>
+</table>
+<br>

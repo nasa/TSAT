@@ -1,0 +1,27 @@
+<script type="text/javascript"
+     src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+<font size="6" color="Magenta">TSAT: 3D Linear Interpolation Library Block</font>
+<br>
+<p>This block performs linear interpolation on a set of data v_data = f(y_data,x_data,z_data) at interpolation points defined in the arrays x_int, y_int, and z_int. The inputs must be the appropriate dimensions which are noted in the tables below. If incorrect dimension are specified then v_int will be output as an array of ones the size of x_int and a warning will be printed to the screen. The independent data arrays, x_data, y_data and z_data, must be monotonically increasing. If x_int, y_int, and or z_int have values in it that are outside the range of x_data, y_data, and z_data respectively, then v_int will be assigned the value of the v_data array at the closest data point or interpolated based on data from the closest edge or surface of the defined domain of the data when applicable. <p>
+<font size="5" color="Blue"> 3D Linear Interpolation Inputs:</font>
+<table border="1"> <tr><td> 3D Linear Interpolation Inputs</td><td>Description</td></tr>
+    <tr><td>x_data</td><td>1-D array of data corresponding to the independent variable on the columns of v_data (2nd direction) [nx1]</td></tr>
+    <tr><td>y_data</td><td>1-D array of data corresponding to the independent variable on the rows of v_data (1st direction) [mx1]</td></tr>
+    <tr><td>z_data</td><td>1-D array of data corresponding to the independent variable on the levels of v_data (3rd direction) [nxm]</td></tr>
+    <tr><td>v_data</td><td>3-D array of data corresponding to the dependent variable that is a function of x, y, and z [px1]</td></tr>
+    <tr><td>x_int</td><td>1-D array of interpolation points corresponding to x_data [px1]</td></tr>
+    <tr><td>y_int</td><td>1-D array of interpolation points corresponding to y_data [px1]</td></tr>
+    <tr><td>z_int</td><td>1-D array of interpolation points corresponding to z_data [px1]</td></tr>
+</table>
+<br>
+<font size="5" color="Blue"> 3D Linear Interpolation Outputs:</font>
+<table border="1"> <tr><td>3D Linear Interpolation Outputs</td><td>Description</td></tr>
+    <tr><td>v_int</td><td>1-D array of interpolated values corresponding to the dependent variable for the interpolation points (x_int,y_int,z_int) [px1]</td></tr>
+</table>
+<br>
+<font size="5" color="Blue"> 3D Linear Interpolation Mask Variables: </font>
+<table border="1"> <tr><td> 3D Linear Interpolation Mask Variables</td><td>Description</td></tr>
+    <tr><td>BN_M</td><td>Block name (hidden variable that is used in warning messages)</td></tr>
+</table>

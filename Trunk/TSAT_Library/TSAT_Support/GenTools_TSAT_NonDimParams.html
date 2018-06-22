@@ -1,0 +1,137 @@
+<script type="text/javascript"
+     src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+<font size="6" color="Magenta">TSAT: Non-Dimensional Parameters Library Block</font>
+<br>
+<p>Reference for the information in this help file: Incropera, F.P., and DeWitt, D.P., Fundamentals of Heat and Mass Transfer, John Wiley & Sons, New York, NY, 2002. Print. <p>
+<p>This block computes various non-dimensional parameters that are related to heat transfer. Those parameters are defined below. A table will follow to define all of the variables used in the equations <p>
+<p>Mach number (M): Ratio of flow velocity to the local speed of sound<p>
+$$
+M = \frac {v}{a}
+$$
+<p>Reynolds number (Re): Ratio of inertial forces to viscous forces in a flow<p>
+$$
+Re = \frac {\rho_f v L}{\mu} = \frac {\dot{m} L}{A \mu}
+$$
+<p>Prandtl number (Pr): Ratio of momentum diffusivity to thermal diffusivity within a fluid<p>
+$$
+Pr = \frac {Cp_f*\mu}{k_f}
+$$
+<p>Grashof number (Gr): Ratio of buoyancy to viscous forces acting on a fluid<p>
+$$
+Gr = \frac {g \beta \left( T_s - T_f \right) L^3 }{\nu^2}
+$$
+<p>Rayleigh number (Ra): Ratio of buoyancy to visous forces multiplied by the ratio of momentum and thermal diffusivities<p>
+$$
+Ra = Gr Pr
+$$
+<p>Biot number (Bi): Ratio of heat transfer resistances inside of and at the surface of a body. It can be used to determine whether temperatures inside the solid body vary significantly.<p>
+$$
+Bi = \frac {h L}{k_s}
+$$
+<p>Fourier number (Fo): Ratio of diffusive or conductive transport rate to the heat storage rate. Helps to characterize transient heat conduction. <p>
+$$
+Fo = \frac {k_s t}{\rho_s Cp_s L^2}
+$$
+<p>Nusselt number (Nu): Ratio of convective to conductive heat transfer across a boundary <p>
+$$
+Nu = \frac {h L}{k_f}
+$$
+<p>Stanton number (Re): Ratio of heat transfered into a fluid to the thermal capacity of the fluid<p>
+$$
+St = \frac {h}{\rho_f v Cp_f}
+$$
+<p>Eckert number (Ec): Ratio of advective heat transport to heat dissipation potential<p>
+$$
+Re = \frac {v^2}{Cp_f \left( T_s - T_f \right) }
+$$
+<p>Colburn j factor (jH): Non-dimensional heat transfer coefficient<p>
+$$
+jH = St Pr^{2/3}
+$$
+<p>Peclet number (Re): Ratio of thermal energy convected by a fluid to thermal energy conducted by the fluid<p>
+$$
+Pe = \frac {\rho_f v L Cp_f}{k_f}
+$$
+
+<font size="5" color="Blue"> Equation Variables:</font>
+<table border="1"> <tr><td> Variable</td><td>Description</td></tr>
+    <tr><td>$$ A $$</td><td>Flow area for an internal flow</td></tr>
+    <tr><td>$$ a $$</td><td>Speed of sound. For an ideal gas $$ a = \left( \gamma R T_f \right)^{1/2} $$</td></tr>
+    <tr><td>$$ Cp_f $$</td><td>Heat capacity of fluid</td></tr>
+    <tr><td>$$ Cp_s $$</td><td>Heat capacity of solid (body)</td></tr>
+    <tr><td>$$ h $$</td><td>Convective heat transfer coefficient</td></tr>
+    <tr><td>$$ k_f $$</td><td>Thermal conductivity of fluid</td></tr>
+    <tr><td>$$ k_f $$</td><td>Thermal conductivity of solid (body)</td></tr>
+    <tr><td>$$ L $$</td><td>Characteristic length</td></tr>
+    <tr><td>$$ \dot{m} $$</td><td>Mass flow rate of an internal flow</td></tr>
+    <tr><td>$$ R $$</td><td>Real gas constant</td></tr>
+    <tr><td>$$ t $$</td><td>characteristic time scale</td></tr>
+    <tr><td>$$ T_f $$</td><td>Temperature of fluid</td></tr>
+    <tr><td>$$ T_s $$</td><td>Temperature of solid (body)</td></tr>
+    <tr><td>$$ v $$</td><td>Velocity of flow</td></tr>
+    <tr><td>$$ \beta $$</td><td>Flow expansion coefficient. For an ideal gas $$ \beta = 1/T_f $$</td></tr>
+    <tr><td>$$ \gamma $$</td><td>Specific heat ratio</td></tr>
+    <tr><td>$$ \mu $$</td><td>Dynamic viscosity of fluid</td></tr>
+    <tr><td>$$ \nu $$</td><td>Kinematic viscosity of fluid. $$ \nu = \mu / \rho $$ </td></tr>
+    <tr><td>$$ \rho_f $$</td><td>Density of fluid</td></tr>
+    <tr><td>$$ \rho_s $$</td><td>Density of solid (body)</td></tr>
+</table>
+
+<p>This block accepts inputs of various dimensions as long as all inputs are consistent in dimensions. Units of all inputs and parameters should be consistent and total scale units should be used.<p>
+<font size="5" color="Blue"> Non-Dimensional Parameters Inputs:</font>
+<table border="1"> <tr><td> Non-Dimensional Parameters Inputs</td><td>Description</td></tr>
+    <tr><td>v</td><td>Velocity of flow </td></tr>
+    <tr><td>mdot</td><td>Mass flow rate of an internal flow </td></tr>
+    <tr><td>rhof</td><td>Denisity of fluid</td></tr>
+    <tr><td>mu</td><td>Viscosity of fluid</td></tr>
+    <tr><td>Tf</td><td>Temperature of fluid</td></tr>
+    <tr><td>kf</td><td>Thermal conductivity of fluid</td></tr>
+    <tr><td>Cpf</td><td>Heat capacity of fluid</td></tr>
+    <tr><td>gam</td><td>Specific heat ratio</td></tr>
+    <tr><td>h</td><td>Convective heat transfer coefficient</td></tr>
+    <tr><td>rhos</td><td>Denisity of solid (body)</td></tr>
+    <tr><td>Ts</td><td>Temperature of solid (body)</td></tr>
+    <tr><td>ks</td><td>Thermal conductivity of solid (body)</td></tr>
+    <tr><td>Cps</td><td>Heat capacity of solid (body)</td></tr>
+</table>
+<br>
+<font size="5" color="Blue"> Non-Dimensional Parameters Outputs:</font>
+<table border="1"> <tr><td>Non-Dimensional Parameters Outputs</td><td>Description</td></tr>
+    <tr><td>M</td><td>Mach number</td></tr>
+    <tr><td>Re</td><td>Reynolds number</td></tr>
+    <tr><td>Pr</td><td>Prandtl number</td></tr>
+    <tr><td>Gr</td><td>Grashof number</td></tr>
+    <tr><td>Ra</td><td>Rayleigh number</td></tr>
+    <tr><td>Bi</td><td>Biot number</td></tr>
+    <tr><td>Fo</td><td>Fourier number</td></tr>
+    <tr><td>Nu</td><td>Nusselt number</td></tr>
+    <tr><td>St</td><td>Stanton number</td></tr>
+    <tr><td>Ec</td><td>Ecker number</td></tr>
+    <tr><td>jH</td><td>Colburn j factor</td></tr>
+    <tr><td>Pe</td><td>Peclet number</td></tr>
+</table>
+<br>
+<font size="5" color="Blue"> Non-Dimensional Parameters Mask Variables: </font>
+<table border="1"> <tr><td> Non-Dimensional Parameters Mask Variables</td><td>Description</td></tr>
+    <tr><td>M_M</td><td>Check this box if you want to output the Mach number</td></tr>
+    <tr><td>Re_M</td><td>Check this box if you want to output the Reynolds number</td></tr>
+    <tr><td>Pr_M</td><td>Check this box if you want to output the Prandtl number</td></tr>
+    <tr><td>Gr_M</td><td>Check this box if you want to output the Grashof number</td></tr>
+    <tr><td>Ra_M</td><td>Check this box if you want to output the Rayleigh number</td></tr>
+    <tr><td>Bi_M</td><td>Check this box if you want to output the Biot number</td></tr>
+    <tr><td>Fo_M</td><td>Check this box if you want to output the Fourier number</td></tr>
+    <tr><td>Nu_M</td><td>Check this box if you want to output the Nusselt number</td></tr>
+    <tr><td>St_M</td><td>Check this box if you want to output the Stanton number</td></tr>
+    <tr><td>Ec_M</td><td>Check this box if you want to output the Ecker number</td></tr>
+    <tr><td>jH_M</td><td>Check this box if you want to output the Colburn j factor</td></tr>
+    <tr><td>Pe_M</td><td>Check this box if you want to output the Peclet number</td></tr>
+    <tr><td>perf_M</td><td>Check this box if the fluid is a perfect gas</td></tr>
+    <tr><td>R_M</td><td>Real gas constant</td></tr>
+    <tr><td>mdot_A_or_rhov_M</td><td>Check this box if the flow is an internal flow an you wish to compute the Reynolds number based on the mass flow rate and flow area. If the box is unchecked the the Reynolds number calculation will use the fluid density and velocity.</td></tr>
+    <tr><td>A_M</td><td>Flow area of the internal passage used when computing the Reynolds number with the mass flow rate.</td></tr>
+    <tr><td>L_M</td><td>Characteristic length</td></tr>
+    <tr><td>g_M</td><td>Accleration due to gravity</td></tr>
+    <tr><td>t_M</td><td>Characteristic time-scale</td></tr>
+</table>

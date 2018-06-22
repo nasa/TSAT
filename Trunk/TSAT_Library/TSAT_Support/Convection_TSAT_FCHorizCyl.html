@@ -1,0 +1,46 @@
+<script type="text/javascript"
+     src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+<font size="6" color="Magenta">TSAT: Horizontal Cylinder Free Convection Library Block</font>
+<br>
+<p>Reference for the information in this help file: Incropera, F.P., and DeWitt, D.P., Fundamentals of Heat and Mass Transfer, John Wiley & Sons, New York, NY, 2002. Print. <p>
+<p>This block estimates the average Nusselt number of a free convecting flow about a horizontal isothermal cylinder. This block allows the application of two different correlations. The first is a set of equations developed by Morgan, each of which is valid over a different Rayliegh number (Ra) range. The reference and correlation is given below:<p>
+<p>V. T. Morgan, "The Overall Convective Heat Transfer from Smooth Circular Cylinders," in T. F. Irvine and J. P. Harnett, Eds., Advances in Heat Transfer, Vol. 11, Academic Press, New York, 1975, pp. 199-264.<p>
+$$
+Nu = C Ra^n
+$$
+<p>where C and n are constants provided in the following table:<p>
+<font size="5" color="Blue"> Morgan Correlation Constants:</font>
+<table border="1"> <tr><td>Ra</td><td>C</td><td>n</td></tr>
+    <tr><td>10^-10 - 0.01</td><td>0.675</td><td>0.058</td></tr>
+    <tr><td>0.01 - 100</td><td>1.02</td><td>0.148</td></tr>
+    <tr><td>100 - 10000</td><td>0.850</td><td>0.188</td></tr>
+    <tr><td>10000 - 10^7</td><td>0.480</td><td>0.25</td></tr>
+    <tr><td>10^7 - 10^12</td><td>0.125</td><td>0.333</td></tr>
+</table>
+<br>
+<p>The second is a single correlation developed by Churchil and Chu that is valid over a wide range of Rayliegh numbers. Below if the reference and correlation:<p>
+<p>S. W. Churchill, and H. H. S. Chu, Int. J. Heat Mass Transfer, 18, 1049, 1975.<p>
+$$
+Nu = \left[ 0.60 + \frac{0.387 Ra^{1/6}}{ \left[ 1 + \left( 0.559/Pr \right)^{9/16} \right]^{8/27} } \right]^{2}, \: \: Ra \leq 10^{12}
+$$
+<p>The Rayliegh number should use the cylinder diamter as the characteristich length. Note that all fluid properties should be evaluated at the film temperature (average of the bulk fluid and surface temperatures). This block is capable of performing multiple calculations given 1-D arrays of consistent size for the inputs.<p>
+
+<font size="5" color="Blue"> Horizontal Cylinder Free Convection Inputs:</font>
+<table border="1"> <tr><td>Horizontal Cylinder Free Convection Inputs</td><td>Description</td></tr>
+    <tr><td>Ra</td><td>Rayliegh number (Characteristic Length = Cylinder Diameter) [nx1]</td></tr>
+    <tr><td>Pr</td><td>Prandtl number [nx1]</td></tr>
+</table>
+<br>
+<font size="5" color="Blue"> Horizontal Cylinder Free Convection Outputs:</font>
+<table border="1"> <tr><td>Horizontal Cylinder Free Convection Outputs</td><td>Description</td></tr>
+    <tr><td>Nu</td><td>Average Nusselt number over the circumference of the cylinder [nx1]</td></tr>
+    <tr><td>Validity</td><td>Variable indicating if the any of the applicable restrictions were violated. This value will be 1 if this condition is viloated and 0 otherwise. [nx1]</td></tr>
+</table>
+<br>
+<font size="5" color="Blue"> Horizontal Cylinder Free Convection Mask Variables:</font>
+<table border="1"> <tr><td>Horizontal Cylinder Free Convection Mask Variables</td><td>Description</td></tr>
+    <tr><td>Corr_M</td><td>Variable indication which correlation to use.</td></tr>
+</table>
+<br>

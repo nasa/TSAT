@@ -1,0 +1,36 @@
+<script type="text/javascript"
+     src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+<font size="6" color="Magenta">TSAT: Flat Plate Incompressible Laminar Boundary Layer (Zero PG) Library Block</font>
+<br>
+<p>Reference for the information in this help file: Incropera, F.P., and DeWitt, D.P., Fundamentals of Heat and Mass Transfer, John Wiley & Sons, New York, NY, 2002. Print. <p>
+<p>This block approximates the boundary layer and thermal boundary layer thicknesses of incompressible laminar flow over a flat plate with a pressure gradient of 0. The following equations are employed:<p>
+$$
+\delta = \frac{5x}{\sqrt{Re_{x}}}, \: Re_{x} = \frac{\rho u x}{\mu}
+$$
+$$
+\delta_t = \delta Pr^{-0.4}
+$$
+<p>This block is capable of performing multiple calculations given 1-D arrays of consistent size for the inputs. The units of the inputs and parameters do not matter as long as they are consistent.<p>
+
+<font size="5" color="Blue"> Flat Plate Incompressible Laminar Boundary Layer (Zero PG) Inputs:</font>
+<table border="1"> <tr><td>Flat Plate Incompressible Laminar Boundary Layer (Zero PG) Inputs</td><td>Description</td></tr>
+    <tr><td>rho_u</td><td>Product of density and velocity [nx1]</td></tr>
+    <tr><td>mu</td><td>Viscosity [nx1]</td></tr>
+    <tr><td>Pr</td><td>Prandtl number [nx1]</td></tr>
+</table>
+<br>
+<font size="5" color="Blue"> Flat Plate Incompressible Laminar Boundary Layer (Zero PG) Outputs:</font>
+<table border="1"> <tr><td>Flat Plate Incompressible Laminar Boundary Layer (Zero PG) Outputs</td><td>Description</td></tr>
+    <tr><td>del</td><td>Boundary layer [nx1]</td></tr>
+    <tr><td>delt</td><td>Thermal boundary layer [nx1]</td></tr>
+    <tr><td>validity</td><td>Variable indicating if the transition Reynolds number was exceeded making the calculation invalid. This value will be 1 if this condition is viloated and 0 otherwise. [nx1]</td></tr>
+</table>
+<br>
+<font size="5" color="Blue"> Flat Plate Incompressible Laminar Boundary Layer (Zero PG) Masked Variables:</font>
+<table border="1"> <tr><td>Flat Plate Incompressible Laminar Boundary Layer (Zero PG) Masked Variables</td><td>Description</td></tr>
+    <tr><td>Retr_M</td><td>Reynolds number which the boundary layer transitions to turbulent. This is used as a check for validity of the computation. [1x1]</td></tr>
+    <tr><td>x_M</td><td>Local position relative to the leading edge. This value should be positive. [nx1]</td></tr>
+</table>
+<br>

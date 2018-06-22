@@ -1,0 +1,75 @@
+<script type="text/javascript"
+     src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+<font size="6" color="Magenta">TSAT: Concentric Cylinder Free Convection Library Block</font>
+<br>
+<p>Reference for the information in this help file: Incropera, F.P., and DeWitt, D.P., Fundamentals of Heat and Mass Transfer, John Wiley & Sons, New York, NY, 2002. Print. <p>
+<p>This block estimates the average convective heat transfer coefficient for free convection within concentric cylinders for either the inner or outer surface. The employed correlation is the work of Raithby and Hollands.<p>
+<p>G. D. Raithby and K. G. T. Hollands, "A General Method of Obtaining Approximate Solutions to Laminar and Turbulent Free Convection Problems," in T. F. Irvine and J. P. Harnett, Eds., Advances in Heat Transfer, Vol. 11, Academic Press. New York, 1975. pp. 265-315.<p>
+<p>The flow in the annular region is characterized by two cells thay are symmetric about the vertical midplane. If the inner surface is hotter than the inner surface then fluid ascends along the inner surface and descends along the outer surface. This obersvation reverses when the outer surface is hotter than the inner surface. Raithby and Hollands express the heat transfer between the inner and outer surfaces with an effiective thermal conductivity: <p>
+$$
+Q = \frac{2 \pi L k_{eff} \left( T_{i} - T_{o} \right)}{\ln\left( r_o/r_i \right)}
+$$
+<p>where<p>
+$$
+L = length \: of \: the \: cylinder, \: r_i = inner \: radius, \: r_o = outer \: radius,
+$$
+$$
+T_i = temperature \: of \: inner \: surface, \: T_o = temperature \: of \: outer \: surface,
+$$
+$$
+k_{eff} = effective \: thermal \: conductivity, Q = heat \: transfer
+$$
+<p>The suggested correlation for the effective thermal conductivity is:<p>
+$$
+\frac{k_{eff}}{k} = 0.386 \left( \frac{Pr}{0.861 + Pr} \right)^{1/4} Ra^{1/4}
+$$
+<p>k is the thermal conductivity of the fluid, Pr is the Prandtl number, and Ra is the Rayliegh number. The characteristic length for Ra is given by:<p>
+$$
+L = \frac{2 \left[ ln \left( r_o/r_i \right) \right]^{4/3}}{\left( r_i^{-3/5} + r_o^{-3/5} \right)^{5/3}}
+$$
+<p>The average convective heat transfer coefficient is:<p>
+$$
+h = \frac{ k_{eff} }{ r \: ln \left( r_o/r_i \right) }
+$$
+<p>where r is the radius of the surface of interest whether it be the inner or outer surface. The heat flux (q) would then be:<p>
+$$
+q = h \left( T_i - T_o \right)
+$$
+<p>The equation used to predict the effective thermal conductivity is valide for the following ranges:<p>
+$$
+0.7 \leq Pr \leq 6000
+$$
+$$
+Ra \leq 10^7
+$$
+<p>Also note that if k_{eff} is less than k then k_{eff} is set equal to k to enforce that the heat transfer be greater than or equal to the heat transfer due to conduction alone.<p>
+<p>All fluid properrties should be evaluated at average of the hot and cold surfaces.<p>
+<p>This block is capable of performing multiple calculations given 1-D arrays of consistent size for the inputs and parameters. The units of inputs and paramters may very but they must be consistent. The units of the output will be dependent on the units of the inputs and parameters.<p>
+
+<font size="5" color="Blue"> Concentric Cylinder Free Convection Inputs:</font>
+<table border="1"> <tr><td>Concentric Cylinder Free Convection Inputs</td><td>Description</td></tr>
+    <tr><td>rho</td><td>Density of the fluid [nx1]</td></tr>
+    <tr><td>mu</td><td>Viscosity of the fluid [nx1]</td></tr>
+    <tr><td>k</td><td>Thermal conductivity of the fluid [nx1]</td></tr>
+    <tr><td>Cp</td><td>Heat capacity of the fluid [nx1]</td></tr>
+    <tr><td>To</td><td>Temperature of the outer surface [nx1]</td></tr>
+    <tr><td>Ti</td><td>Temperature of the inner surface [nx1]</td></tr>
+</table>
+<br>
+<font size="5" color="Blue"> Concentric Cylinder Free Convection Outputs:</font>
+<table border="1"> <tr><td>Concentric Cylinder Free Convection Outputs</td><td>Description</td></tr>
+    <tr><td>h</td><td>Average convective heat transfer coefficient [nx1]</td></tr>
+    <tr><td>Validity</td><td>Variable indicating if any of the noted restrictions to the correlation were violated. This value will be 1 if there are any violation and 0 otherwise. [nx1]</td></tr>
+</table>
+<br>
+<font size="5" color="Blue"> Concentric Cylinder Free Convection Masked Variables:</font>
+<table border="1"> <tr><td>Concentric Cylinder Free Convection Masked Variables</td><td>Description</td></tr>
+    <tr><td>R_M</td><td>Real gas constant [nx1]</td></tr>
+    <tr><td>g_M</td><td>Acceleration due to gravity [nx1]</td></tr>
+    <tr><td>Ro_M</td><td>Radius of the outer surface [nx1]</td></tr>
+    <tr><td>Ri_M</td><td>Radius of the inner surface [nx1]</td></tr>
+    <tr><td>InOrOutSurf_M</td><td>Variable indicating if heat transfer coefficient is to be calculated for the inner or outer surface.</td></tr>
+</table>
+<br>

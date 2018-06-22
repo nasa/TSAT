@@ -1,0 +1,84 @@
+<script type="text/javascript"
+     src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+<font size="6" color="Magenta">TSAT: Turbulent Flat Plate 1/7 Power Law (Tw-Te = Polynomial) Library Block</font>
+<br>
+<p>Reference for the information in this help file: White, F.M., Viscous Fluid Flow 3rd Ed., McGraw Hill, New York, NY, 2006. Print. <p>
+<p>This block implements the 1/7 Power Law solution to incompressible turbulent-boundary-layer flow and addresses temperature variations between the wall and free-stream using the method of indicial solutions (superposition). The 1/7 Power Law was suggested by Prandtl. It approximates the profile of the boundary layer:<p>
+$$
+\frac{u}{U} = \left( \frac{y}{\delta} \right)^{1/7}
+$$
+$$
+\frac{T - T_w}{T_e - T_w} = \left( \frac{y}{\delta} \right)^{1/7}
+$$
+<p>Here U is the free-stream velocity, u is the local mean velocity in the boundary boundary layer, y is the distance from the wall, Tw is the temperature of the wall, Te is the free-stream temperature, and T is the local mean temperature inside the boundary layer. The boundary layer thickness is approximated as:<p>
+$$
+\delta = \frac{0.16x}{Re^{1/7}}
+$$
+<p>where x is the location along the wall and Re is the local Reynolds number<p>
+$$
+Re = \frac{xU}{\nu}, \: \: \nu = kinematic \: viscosity
+$$
+<p>With a uniform wall temperature and free-stream temperature the profile given above is a decent approximation and the local Stanton number can be approximated using the Reynolds analogy for a turbulent flat plate:<p>
+$$
+St_{\Delta T} = \frac{C_f/2}{1 + 13 \left( Pr^{2/3} - 1 \right) \left( C_f/2 \right)^{1/2} }, \: \: Pr \geq 0.7
+$$
+<p>Pr is the Prandtl number and the skin-friction coefficient is given as:<p>
+$$
+C_f = \frac{0.455}{ln \left( 0.06Re \right)^2 }
+$$
+<p>This expression is quite accurate for a smooth flat plate. <p>
+<p>Complexities with the varying wall temperature make the temperature profile given earlier nolonger applicable and it is difficult to resolve the temperature profiles within the boundary layer. However, superposition by indicial solution can be used to estimate the local heat transfer based on fact that the thermal-energy equation is linear. In general the local heat transfer at the wall is:<p>
+$$
+q_w(x) = \int_{0}^{x} h(x_0,x) \frac{d(T_w-T_e)}{dx_0} dx_0
+$$
+<p>where h is the local convective heat transfer coefficient. Instead of considering the local heat transfer coefficient we consider the local Stanton number:<p>
+$$
+St(x_0,x) = \frac{C_f(x)/2}{1 + 13 \left( Pr^{2/3} - 1 \right) \left( C_f(x)/2 \right)^{1/2} } \left[ 1 - \left( \frac{x_0}{x} \right)^{9/10} \right]^{-1/9}
+$$
+<p>x0 is the location which the indicial solution starts<p>
+<p>If the temperature difference between the wall and free-stream can be written as a polynomial (a fairly general assumption):<p>
+$$
+T_w - T_e = \Sigma_{j=1}^{p} a_j x^{j-1} = a_1 + a_2 x + a_3 x^2 + ... + a_p x^{p-1}
+$$
+<p>then the local Stanton number is computed as follows:<p>
+$$
+St = St_{\Delta T} \frac{ a_1 + \Sigma_{j=1}^{p} \frac{10}{9} (j-1)a_{j}x^{j-1} \frac{\Gamma(10(j-1)/9) \Gamma(8/9)}{\Gamma(10(j-1)/9 + 8/9)} }{\Sigma_{j=1}^{p} a_j x^{j-1}}
+$$
+<p>where<p>
+$$
+\Gamma() \: denotes \: the \: gamma \: function
+$$
+<p>Then the local Nusselt number is:<p>
+$$
+Nu = St Re Pr
+$$
+
+<p>If the boundary layer profile is desired then more attention is required which often leads to the use of finite-difference methods.<p>
+<p>Assure that all inputs and parameters use consistent units.
+<p>This block is capable of providing boundary layer solutions along the length of the surface given a 1-D array for x_M.<p>
+
+<font size="5" color="Blue"> Turbulent Flat Plate 1/7 Power Law (Tw-Te = Polynomial) Inputs:</font>
+<table border="1"> <tr><td>Turbulent Flat Plate 1/7 Power Law (Tw-Te = Polynomial) Inputs</td><td>Description</td></tr>
+    <tr><td>nu</td><td>Kinematic viscosity [1x1]</td></tr>
+    <tr><td>U</td><td>Free-stream velocity [1x1]</td></tr>
+    <tr><td>a</td><td>Array of polynomial coefficients [a1 a2 a3 ... ap] to (Tw-Te) = a1 + a2*T + a3*T^2 + ... + ap*T^(p-1) [px1]</td></tr>
+</table>
+<br>
+<font size="5" color="Blue"> Turbulent Flat Plate 1/7 Power Law (Tw-Te = Polynomial) Outputs:</font>
+<table border="1"> <tr><td>Turbulent Flat Plate 1/7 Power Law (Tw-Te = Polynomial) Outputs</td><td>Description</td></tr>
+    <tr><td>y</td><td>Matrix of y positions for the hydrodynamic boundary layer with each column correponding to element of x [nxm]</td></tr>
+    <tr><td>u</td><td>Matrix of u(x,y) with rows corresponding to y and columns corresponding to x [nxm]</td></tr>
+    <tr><td>del</td><td>Array of boundary layer thickness corresponding to each x [mx1]</td></tr>
+    <tr><td>Nu</td><td>Local Nusselt number [mx1]</td></tr>
+</table>
+<br>
+<font size="5" color="Blue"> Turbulent Flat Plate 1/7 Power Law (Tw-Te = Polynomial) Masked Variables:</font>
+<table border="1"> <tr><td>Turbulent Flat Plate 1/7 Power Law (Tw-Te = Polynomial) Masked Variables</td><td>Description</td></tr>
+    <tr><td>Pr_M</td><td>Prandtl number [1x1]</td></tr>
+    <tr><td>x_M</td><td>Position(s) along the surface [mx1]</td></tr>
+    <tr><td>n_M</td><td>Number of equally spaced y positions in the boundary layer profile [1x1]</td></tr>
+    <tr><td>imax_M</td><td>Maximum number of iterations for the solver [1x1]</td></tr>
+</table>
+<br>

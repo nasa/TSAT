@@ -1,0 +1,74 @@
+<script type="text/javascript"
+     src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+<font size="6" color="Magenta">2-D Transient Conduction Model - ADI Crank-Nicolson (Iterative Subsystem Capable) Library Block</font>
+<br>
+<p>This block is identical to the block <a href="Conduction_TSAT_2DCondADI.html">2-D Transient Conduction Model - ADI Crank-Nicolson</a> other than a slight modification to make it compatible for use within an iterative subsystem. The memory block which holds the temperature state in <a href="Conduction_TSAT_2DCondADI.html">2-D Transient Conduction Model - ADI Crank-Nicolson</a> is troublesome for use inside iterative subsystems because as the subsystem iterates the temperature solution will move forward in time while the model outside of the iterative subsystem remains at the same time-step. This can cause inconsistent and erroneous results, particularly for transients. To resolve this issue, the memory block should be moved outside of the block. This allows the temperature matrix to be routed outside of the iterative subsystem into a memory block and then back into the iterative subsystem and into this block as an input. This will effectively provide the temperature solution from the previous iteraiton as an input. Because the memory block has been removed from inside the block the responsibility is on the user to define the initial temperature state in the memory block that is placed outside of the iterative subsystem.<p>
+
+<font size="5" color="Blue">2-D Transient Conduction Model - ADI Crank-Nicolson (Iterative Subsystem Capable) Inputs:</font>
+<table border="1"> <tr><td>2-D Transient Conduction Model - ADI Crank-Nicolson (Iterative Subsystem Capable) Inputs</td><td>Description</td></tr>
+    <tr><td>k</td><td>Thermal conductivity structure with the parameters:
+        <br>- kx - Thermal conductivity in the x-dir [mxn]
+        <br>- ky - Thermal conductivity in the y-dir [mxn]
+    </td></tr>
+    <tr><td>Cp</td><td>Heat capacity array for the structure [mxn]</td></tr>
+    <tr><td>rho</td><td>Density array for the structure [mxn]</td></tr>
+    <tr><td>TfL</td><td>Temperature of the fluid on the left surface (convection boundary condition) [mx1]</td></tr>
+    <tr><td>hL</td><td>Convective heat transfer coefficient of the fluid on the left surface (convection boundary condition) [mx1]</td></tr>
+    <tr><td>TsL</td><td>Temperature at the surface or interface of with a contacting solid on the left side (conduction boundary condition) [mx1]</td></tr>
+    <tr><td>CL</td><td>Thermal conductance through a contacting solid on the left side (conduction boundary condition) [mx1]</td></tr>
+    <tr><td>TextL</td><td>Temperature of the external source/sink radiating heat to/from the ileft surface (radiation boundary condition) [mx1]</td></tr>
+    <tr><td>uL</td><td>Radiative heat transfer coefficient between the external source/sink and the left surface (radiation boundary condition) [mx1]</td></tr>
+    <tr><td>TfR</td><td>Temperature of the fluid on the right surface (convection boundary condition) [mx1]</td></tr>
+    <tr><td>hR</td><td>Convective heat transfer coefficient of the fluid on the right surface(convection boundary condition) [mx1]</td></tr>
+    <tr><td>TsR</td><td>Temperature at the surface or interface of with a contacting solid on the right side (conduction boudnary condition) [mx1]</td></tr>
+    <tr><td>CR</td><td>Thermal conductance through a contacting solid on the right side (conduction boundary condition) [mx1]</td></tr>
+    <tr><td>TextR</td><td>Temperature of the external source/sink radiating heat to/from the right surface (radiation boundary condition) [mx1]</td></tr>
+    <tr><td>uR</td><td>Radiative heat transfer coefficient between the external source/sink and the right surface (radiation boundary condition) [mx1]</td></tr>
+    <tr><td>TfB</td><td>Temperature of the fluid on the bottom surface (convection boundary condition) [nx1]</td></tr>
+    <tr><td>hB</td><td>Convective heat transfer coefficient of the fluid on the bottom surface (convection boundary condition) [nx1]</td></tr>
+    <tr><td>TsB</td><td>Temperature at the surface or interface of with a contacting solid on the bottom side (conduction boundary condition) [nx1]</td></tr>
+    <tr><td>CB</td><td>Thermal conductance through a contacting solid on the bottom side (conduction boundary condition) [nx1]</td></tr>
+    <tr><td>TextB</td><td>Temperature of the external source/sink radiating heat to/from the bottom surface (radiation boundary condition) [nx1]</td></tr>
+    <tr><td>uB</td><td>Radiative heat transfer coefficient between the external source/sink and the bottom surface (radiation boundary condition) [nx1]</td></tr>
+    <tr><td>TfT</td><td>Temperature of the fluid on the top surface (convection boundary condition) [nx1]</td></tr>
+    <tr><td>hT</td><td>Convective heat transfer coefficient of the fluid on the top surface (convection boundary condition) [nx1]</td></tr>
+    <tr><td>TsT</td><td>Temperature at the surface or interface of with a contacting solid on the top side (conduction boudnary condition) [nx1]</td></tr>
+    <tr><td>CT</td><td>Thermal conductance through a contacting solid on the top side (conduction boundary condition) [nx1]</td></tr>
+    <tr><td>TextT</td><td>Temperature of the external source/sink radiating heat to/from the top surface (radiation boundary condition) [nx1]</td></tr>
+    <tr><td>uT</td><td>Radiative heat transfer coefficient between the external source/sink and the top surface (radiation boundary condition) [nx1]</td></tr>
+    <tr><td>To</td><td>Temperature from the previous time-step [mxn]</td></tr>
+</table>
+<br>
+<font size="5" color="Blue">2-D Transient Conduction Model - ADI Crank-Nicolson (Iterative Subsystem Capable) Outputs:</font>
+<table border="1"> <tr><td>2-D Transient Conduction Model - ADI Crank-Nicolson (Iterative Subsystem Capable) Outputs</td><td>Description</td></tr>
+    <tr><td>T</td><td>The current temperature of each node in the structure (mxn)</td></tr>
+    <tr><td>C</td><td>Thermal conductance of all surface nodes. The purpose of these outputs is for use in determining interface temperatures in the case of a conduction boundary condition with the interface being formed with another conduction block.
+        <br>- CL - Thermal conductance for left surface nodes (mx1)
+        <br>- CR - Thermal conductance for right surface nodes (mx1)
+        <br>- CB - Thermal conductance for bottom surface nodes (1xn)
+        <br>- CT - Thermal conductance for top surface nodes (1xn)
+        </td></tr>
+</table>
+<br>
+<font size="5" color="Blue">2-D Conduction Model - ADI Crank-Nicolson (Iterative Subsystem Capable) Mask Variables: </font>
+<table border="1"> <tr><td>2-D Conduction Model - ADI Crank-Nicolson (Iterative Subsystem Capable) Mask Variables</td><td>Description</td></tr>
+    <tr><td>x_M</td><td>Spatial discretization in x-direction (node locations) [nx1]</td></tr>
+    <tr><td>y_M</td><td>Spatial discretization in y-direction (node locations) [mx1]</td></tr>
+    <tr><td>T0_M</td><td>Initial temperature of the structure at each node [mxn]</td></tr>
+    <tr><td>dt_M</td><td>Time Step [1x1]</td></tr>
+    <tr><td>shape_M</td><td>Shape parameter. Options are (1) - planar in both directions (infinite 2D slab), (2) - planar in x-directino and axi-symmetric in the y-direction (cylindrical shape symmetric about the x-axis), (3) - axi-symmetric in the x-direction and planar in the y-direction (cylindrical shape symmetric about the y-axis).</td></tr>
+    <tr><td>convL_M</td><td>Checked if there is a convection boundary condition on the left surface</td></tr>
+    <tr><td>radL_M</td><td>Checked if there is a radiation boundary condition on the left surface</td></tr>
+    <tr><td>condL_M</td><td>Checked if there is a conduction boundary condition on the left surface</td></tr>
+    <tr><td>convR_M</td><td>Checked if there is a convection boundary condition on the right surface</td></tr>
+    <tr><td>radR_M</td><td>Checked if there is a radiation boundary condition on the right surface</td></tr>
+    <tr><td>condR_M</td><td>Checked if there is a conduction boundary condition on the right surface</td></tr>
+    <tr><td>convB_M</td><td>Checked if there is a convection boundary condition on the bottom surface</td></tr>
+    <tr><td>radB_M</td><td>Checked if there is a radiation boundary condition on the bottom surface</td></tr>
+    <tr><td>condB_M</td><td>Checked if there is a conduction boundary condition on the bottom surface</td></tr>
+    <tr><td>convT_M</td><td>Checked if there is a convection boundary condition on the top surface</td></tr>
+    <tr><td>radT_M</td><td>Checked if there is a radiation boundary condition on the top surface</td></tr>
+    <tr><td>condT_M</td><td>Checked if there is a conduction boundary condition on the top surface</td></tr>
+</table>

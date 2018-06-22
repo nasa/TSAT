@@ -1,0 +1,55 @@
+<script type="text/javascript"
+     src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+<font size="6" color="Magenta">TSAT: Laminar Coiled Tube Library Block</font>
+<br>
+<p>Coiled tubes are sometimes used to enhance heat transfer without turbulence or additional surface area. It utilizes centrifugal forces within the flow which induces secondary flow that enhances heat transfer. This block estimates the average Nusselt number for a helically coiled tube with an internal flow. The correlation was provided by Shah and Joshi:<p>
+<p>R.K. Shah, and S.D. Joshi, in Handbook of Single-Phase Convective Heat Transfer, Chap. 5, Wiley-Interscience, Hoboken, MJ, 1987.<p>
+<p>The correlation is:<p>
+$$
+Nu = \left[ \left( 3.66+\frac{4.343}{a} \right)^{3} + 1.158 \left( \frac{Re(D/C)^{1/2}}{b} \right)^{3/2} \right]^{1/3} \left( \frac{\mu}{\mu_{s}} \right)^{0.14}
+$$
+<p>where<p>
+$$
+a = 1 + \frac{927(C/D)}{Re^{2}Pr},
+$$
+$$
+b = 1 + \frac{0.477}{Pr}
+$$
+<p>and<p>
+$$
+Nu = Nusselt \: number, \: Re = Reynolds \: number, \: Pr = Prandtl \: number
+$$
+$$
+\mu = viscosity, \: \mu_{s} = viscosity \: at \: surface \: temperature 
+$$
+$$
+D = diameter \: of \: the \: internal \: flow \: path, \: C = diameter \: of \: the \: coils
+$$
+<p>The implemented correlation is valid for:<p>
+$$
+1 \leq Re(D/C)^{1/2} \leq 1000, \: 0.005 \leq Pr \leq 1600
+$$
+<p>The Re contraint typically restricts use to laminar flow (Re < Re,c*(1 + 12*(D/C)^(1/2)), Re,c = ~2300). For turbulent flow the effects of secondary flow is minor and a straight pipe correlation for turbulent flow is more appropriate. Also, a straight pipe laminar flow correlation may suffice when C/D >= 20 in which case error is less than 10%. Note that the Reynolds number and ensuing heat transfer coefficient should be calculated using the diameter of the tube (D) as the characteristic length.<p>
+<p>This block is capable of performing multiple Nusselt number approximations given 1-D input arrays of the same size.<p>
+    
+<font size="5" color="Blue"> Laminar Coiled Tube Inputs:</font>
+<table border="1"> <tr><td> Laminar Coiled Tube Inputs</td><td>Description</td></tr>
+    <tr><td>Re</td><td>Reynolds number (based on the diameter of the largest tube in the bank) [nx1]</td></tr>
+    <tr><td>Pr</td><td>Prandtl number [nx1]</td></tr>
+    <tr><td>mu</td><td>Viscosity of the fluid [nx1]</td></tr>
+    <tr><td>mus</td><td>Viscosity of the fluid at the surface temperature of the tube [nx1]</td></tr>
+</table>
+<br>
+<font size="5" color="Blue"> Laminar Coiled Tube Outputs:</font>
+<table border="1"> <tr><td>Laminar Coiled Tube Outputs</td><td>Description</td></tr>
+    <tr><td>Nu</td><td>Average Nusselt number [nx1]</td></tr>
+    <tr><td>Validity</td><td>Variable indicating if the Re and Pr restictions are violated or not. The value of 1 if a violation is present and 0 otherwise. [nx1]</td></tr>
+</table>
+<br>
+<font size="5" color="Blue"> Laminar Coiled Tube Masked Variables:</font>
+<table border="1"> <tr><td>Laminar Coiled Tube Masked Variables</td><td>Description</td></tr>
+    <tr><td>DoC_M</td><td>Ratio of the diameter of the tube flow cross-section to the diameter of the coil [1x1]</td></tr>
+</table>
+<br>

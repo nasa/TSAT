@@ -1,0 +1,26 @@
+<script type="text/javascript"
+     src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+<font size="6" color="Magenta">TSAT: Film Cooling Reference Temperature Library Block</font>
+<br>
+<p>This function computes the effective temperature of the fluid on the surface of a structure due to film cooling. The model utilizes a film cooling coefficient to determine this reference temperature (T_ref) based one the temperatures of the hot flow path (T_hot) and cooling flow (T_cool). <p>
+$$
+T_{ref} = T_{hot} + \eta \left( T_{cool}-T_{hot} \right)
+$$
+<p>Units of the inputs must be consistent and the output will be in the same units as the input. <p>
+<font size="5" color="Blue"> Film Cooling Reference Temperature Inputs:</font>
+<table border="1"> <tr><td> Film Cooling Reference Temperature Inputs</td><td>Description</td></tr>
+    <tr><td>T_hot</td><td>Temperature of the hot flow path [nxm]</td></tr>
+    <tr><td>T_cool</td><td>Temperature of the flow used for film cooling [nxm]</td></tr>
+</table>
+<br>
+<font size="5" color="Blue"> Film Cooling Reference Temperature Outputs:</font>
+<table border="1"> <tr><td>Film Cooling Reference Temperature Outputs</td><td>Description</td></tr>
+    <tr><td>T_ref</td><td>The effective reference temperature of the fluid in contact with the structure [nxm]</td></tr>
+</table>
+<br>
+<font size="5" color="Blue"> Film Cooling Reference Temperature Mask Variables: </font>
+<table border="1"> <tr><td> Film Cooling Reference Temperature Mask Variables</td><td>Description</td></tr>
+    <tr><td>eta_M</td><td>Film cooling coefficient. This number between 0 and 1 determines the effectiveness of the film cooling. [1x1]</td></tr>
+</table>

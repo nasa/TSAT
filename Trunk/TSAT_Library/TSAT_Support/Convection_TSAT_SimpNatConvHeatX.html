@@ -1,0 +1,45 @@
+<script type="text/javascript"
+     src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+<font size="6" color="Magenta">TSAT: Simple Natural Convective Heat Transfer Library Block</font>
+<br>
+<p>This function takes a simplistic apporach at modeling the natural convective heat transfer coefficient (h). The equation for calculating the heat transfer coefficient is based on empirical models and attempts to correlate the heat transfer coefficient with effective temperature difference between the surface(s) and or fluid relevant to the heat transfer. <p>
+$$
+h = h_{coeff} \left| \frac{T_{surface}-T_{reference}}{\Delta T_{des}}\right|^{0.25}
+$$   
+<p>This equation is based on the form of various natural convection models:
+$$
+h = K Ra^{0.25}
+$$
+<p>As per the following reference: <p>
+<p>Incropera, F.P., and Dewitt, D.P., “Fundamentals of Heat and Mass Transfer,” 7th Edition. John Wiley & Son. 2011.<p> 
+<p>K is a constant and Ra is the Raleighly number which is proportional to the temperature difference.
+<p>This block can accept various units but the units must be consistent. Consistent units for standar English and SI units are given in the following table. <p>
+<font size="5" color="Blue"> Input and Parameter Unit Examples:</font>
+<table border="1"> <tr><td> Input/Parameter </td><td> English </td><td> SI </td></tr>
+    <tr><td>hcoeff_M</td><td>Btu/(sec-ft^2-R)</td><td>W/(m-K)</td></tr>
+    <tr><td>Wdes_M</td><td>slug/sec</td><td>kg/sec</td></tr>
+    <tr><td>Tdes_M</td><td>R</td><td>K</td></tr>
+    <tr><td>W</td><td>slug/sec</td><td>kg/sec</td></tr>
+    <tr><td>T</td><td>R</td><td>K</td></tr>
+</table>
+<br>
+<p>The output heat transfer coefficient will be in whatever units hcoeff is. This block can also handle inputs of various sizes as long as the inputs Ts and Tr are the same dimensions.<p>
+<br>
+<font size="5" color="Blue"> Simple Convective Heat Transfer Inputs:</font>
+<table border="1"> <tr><td> Simple Convective Heat Transfer Inputs</td><td>Description</td></tr>
+    <tr><td>Ts</td><td>Temperature of the surface (any size, same as Tr)</td></tr>
+    <tr><td>Tr</td><td>Reference temperature (any size, same a Ts)</td></tr>
+</table>
+<br>
+<font size="5" color="Blue"> Simple Convective Heat Transfer Outputs:</font>
+<table border="1"> <tr><td>Simple Convective Heat Transfer Outputs</td><td>Description</td></tr>
+    <tr><td>h</td><td>Convective heat transfer coefficient (size of Ts and Tr)</td></tr>
+</table>
+<br>
+<font size="5" color="Blue"> Simple Convective Heat Transfer Mask Variables: </font>
+<table border="1"> <tr><td> Simple Convective Heat Transfer Mask Variables</td><td>Description</td></tr>
+    <tr><td>hcoeff_M</td><td>Convective heat transfer coefficient when Ts - Tr = dTdes_M (1x1)</td></tr>
+    <tr><td>dTdes_M</td><td>Temperature difference (Ts-Tr) at the designed or a known data point (1x1)</td></tr>
+</table>

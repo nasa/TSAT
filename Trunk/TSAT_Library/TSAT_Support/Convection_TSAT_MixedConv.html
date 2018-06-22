@@ -1,0 +1,57 @@
+<script type="text/javascript"
+     src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+<font size="6" color="Magenta">TSAT: Combined Forced & Natural Convection Library Block</font>
+<br>
+<p>Reference for the information in this help file and the presented correlation: Incropera, F.P., and DeWitt, D.P., Fundamentals of Heat and Mass Transfer, John Wiley & Sons, New York, NY, 2002. Print. <p>
+<p>Natural (free) convection is negligible if (Gr/Re^2) << 1 and forced convection is negligible if (Gr/Re^2) is >> 1. However when this condition is not met and (Gr/Re^2) is in the vicinity of 1 free and forced convection both play a significant role in heat transfer. This results in a mixed convection problem. <p>
+<p>This block can be used to approximate the combined forced and natural convection Nusselt number from which the convective heat transfer coefficient can be derived. Three special cases have been extensively studied corresonding to assisted flow (buoyancy force is acting in the same direction as the forced flow), transverse flow (buoyancy force is acting in a direction perpendicular to the forced flow), and opposing flow (buoyancy forced are acting in the opposite direction of the forced flow). In the cases of assisting flow and transfer flow the buoyancy forces are enhancing the rate of heat transfer while opposing flow will decrease it. It is common practice to correlate mixed convection heat transfer for external and internal flows by an expression of the form <p>
+$$
+Nu = \left( Nu_{F}^n \pm Nu_{N}^n \right)^{1/n}
+$$
+<p>where<p>
+$$
+Nu = mixed \: convection \: Nusselt \: number
+$$
+$$
+Nu_{F} = forced \: convection \: Nusselt \: number
+$$
+$$
+Nu_{N} = natural \: convection \: Nusselt \: number
+$$
+$$
+n = correlation \: exponent
+$$
+<p>The forced and natural convection Nusselts numbers are determined from existing correlations for pure forced and free convection. The sign on the right side of the equation is '+' when the flow is assisting or transverse and '-' when the flow is opposing. The correlation exponent, n, is typically a value between 3 and 4. Most commonly a value around 3 is used however other values are better suited in different scenarios. For example, 3.5 and 4 are typically recommended for used with transverse flow involving a horizontal plate and cylinders or spheres respectively. The mixed convection heat transfer coefficient be calculated using the Nusselt number. <p>
+$$
+h = \frac{Nu k}{L}
+$$
+where
+$$
+h = mixed \: convection \: heat \: transfer \: coefficient
+$$
+$$
+k = local \: thermal \: conductivity \: of \: the \: convective \: fluid
+$$
+$$
+L = characteristic \: length
+$$
+<p>The correlation used by this block should be viewed as a first approximation and any serious treatment should be accompanied by an examination of the available literature.
+<p>This block accepts inputs of various dimensions as long as all inputs are consistent in dimensions. <p>
+<font size="5" color="Blue"> Combined Forced & Natural Convection Inputs:</font>
+<table border="1"> <tr><td> Combined Forced & Natural Convection Inputs</td><td>Description</td></tr>
+    <tr><td>NuF</td><td>Forced convection Nusselt number (-) [nxm]</td></tr>
+    <tr><td>NuN</td><td>Natural convection Nusselt number (-) [nxm]</td></tr>
+</table>
+<br>
+<font size="5" color="Blue"> Combined Forced & Natural Convection Outputs:</font>
+<table border="1"> <tr><td>Combined Forced & Natural Convection Outputs</td><td>Description</td></tr>
+    <tr><td>Nu</td><td>Mixed convection Nusselt number (-) [nxm]</td></tr>
+</table>
+<br>
+<font size="5" color="Blue"> Combined Forced & Natural Convection Mask Variables: </font>
+<table border="1"> <tr><td> Combined Forced & Natural Convection Mask Variables</td><td>Description</td></tr>
+    <tr><td>dir_M</td><td>Relative direction of natural and forced flows (checked - assisted or transverse, unchecked - opposed)</td></tr>
+    <tr><td>n_M</td><td>Correlation exponent [1x1]</td></tr>
+</table>

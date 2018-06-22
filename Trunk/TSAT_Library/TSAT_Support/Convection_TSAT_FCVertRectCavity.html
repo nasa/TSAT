@@ -1,0 +1,44 @@
+<script type="text/javascript"
+     src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+<font size="6" color="Magenta">TSAT: Vertical Rectangular Cavity Free Convection Library Block</font>
+<br>
+<p>Reference for the information in this help file: White, F.M., Viscous Fluid Flow 3rd Ed., McGraw Hill, New York, NY, 2006. Print. <p>
+<p>This block gives a first approximation of the average Nusselt number of free convection within a rectangular vertical cavity. The vertical surfaces are heated and cooled while the horizontal surfaces are adiabatic. The flow motion is characterized by a recirculating or cellular flow for which fluid ascends along the hot wall and descends along the cold wall. A set of empirical correlation is employed by this block. Which is active is dependent on the Rayliegh number and aspect ratio (H/L). H is the height of the cavity and L is the distance between the hot and cold surfaces. The correlations employed were recommended by Catton. The Reference, eqaution, and additonal restrictions are listed below:<p>
+<p>L. Catton, "Natural Convection in Enclosures," Proc. 6th Int. Heat Transfer Conf., Toronto, Canada, 1978, Vol. 6, pp. 13-31.<p>
+<p>L. Catton, P. S. Ayyaswamy, and R. M. Clever, Int. J. Heat Mass Transfer, 17, 173, 1974.<p>
+<p>For aspect ratios in the between 1 and 10 the following correlations have been suggested:<p>
+$$
+Nu = 0.22 \left( \frac{Pr}{0.2 + Pr} Ra \right)^{0.28} \left( \frac{H}{L} \right)^{-1/4}, \: \: \left( 2 \leq H/L \leq 10, \: Pr \leq 10^5, \: 10^3 \leq Ra \: \leq 10^{10} \right)
+$$
+$$
+Nu = 0.18 \left( \frac{Pr}{0.2 + Pr} Ra \right)^{0.29}, \: \: \left( 1 \leq H/L \leq 2, \: 10^{-3} \leq Pr \leq 10^5, \: 10^3 \leq \frac{Ra Pr}{0.2 + Pr} \right)
+$$
+<p>For larger aspect ratios up to 40 the following correlations are recommended:<p>
+$$
+Nu = 0.42 Ra^{1/4} Pr^{0.012} \left( \frac{H}{L} \right)^{-0.3}, \: \: \left( 10 \leq H/L \leq 40, \: 1 \leq Pr \leq 20000, \: 10^4 \leq Ra \leq 10^7 \right)
+$$
+$$
+Nu = 0.046Ra^{1/3}, \: \: \left( 1 \leq H/L \leq 40, \: 1 \leq Pr \leq 20, \: 10^6 \leq Ra \leq 10^9 \right)
+$$
+<p>Ra is the Rayliegh number and Pr is the Prandtl number. Note that for small Rayliegh numbers, Ra <= 1000, the buoyancy-driven flow is weak and, in the absence of radiation, heat transfer is primarily by conduction -> Nu = 1. All fluid properrties should be evaluated at average of the hot and cold surfaces. The Rayliegh number should be calculated using L, the distance between the hot and cold surfaces, as the characteristic length. Likewise, this should be the characteristic length associated with the computed Nusselt number.
+<p>This block is capable of performing multiple calculations given 1-D arrays of consistent size for the inputs and parameters.<p>
+
+<font size="5" color="Blue"> Vertical Rectangular Cavity Inputs:</font>
+<table border="1"> <tr><td>Vertical Rectangular Cavity Inputs</td><td>Description</td></tr>
+    <tr><td>Ra</td><td>Rayliegh number [nx1]</td></tr>
+    <tr><td>Pr</td><td>Prandtl number [nx1]</td></tr>
+</table>
+<br>
+<font size="5" color="Blue"> Vertical Rectangular Cavity Outputs:</font>
+<table border="1"> <tr><td>Vertical Rectangular Cavity Outputs</td><td>Description</td></tr>
+    <tr><td>Nu</td><td>Average Nusselt number [nx1]</td></tr>
+    <tr><td>Validity</td><td>Variable indicating if the correlation restrictions were violated. This value will be 1 if this condition is viloated and 0 otherwise. [nx1]</td></tr>
+</table>
+<br>
+<font size="5" color="Blue"> Vertical Rectangular Cavity Masked Variables:</font>
+<table border="1"> <tr><td>Vertical Rectangular Cavity Masked Variables</td><td>Description</td></tr>
+    <tr><td>AR_M</td><td>Aspect ratio of the rectangular cavity (H/L) where H is the height of L is the distance between the hot and cold walls [nx1]</td></tr>
+</table>
+<br>

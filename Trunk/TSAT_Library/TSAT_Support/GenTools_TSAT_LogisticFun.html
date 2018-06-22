@@ -1,0 +1,53 @@
+<script type="text/javascript"
+     src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+<font size="6" color="Magenta">TSAT: Logistic Function Block</font>
+<br>
+<p>This block computes the logistic function given x as an input. The exact shape of the logistic function is determined based on it's parameters.<p>
+$$
+y = \frac{L_f - L_o}{1 + e^{-k \left( x - x_o \right) }} + L_o
+$$
+<p>where<p>
+$$
+L_o = the \: value \: of \: the \: function \: at \: the \: left \: asymptote
+$$
+$$
+L_f = the \: value \: of \: the \: function \: at \: the \: right \: asymptote
+$$
+$$
+x_o = the \: location \: of \: the \: inflection \: point \: (center) \: of \: the \: curve
+$$
+$$
+k = the \: slope \: of \: the \: curve
+$$
+<p>All of these parameters can be specified and some of them can be calculated apriori by the block given some additional information. In particular xo and k can be computed by the block.
+$$
+x_o = 0.5 \left(x_L + x_R\right)
+$$
+$$
+k = -\frac{ln(99)}{x_L-x_o}
+$$
+<p>where<p>
+$$
+x_L = location \: where \: y \: is \: within \: 1 \: percent \: of \: L_o
+$$
+$$
+x_R = location \: where \: y \: is \: within \: 1 \: percent \: of \: L_f
+$$
+<font size="5" color="Blue"> Logistic Function Inputs:</font>
+<table border="1"> <tr><td> Logistic Function Inputs</td><td>Description</td></tr>
+    <tr><td>x</td><td>independent variable [nx1]</td></tr>
+</table>
+<br>
+<font size="5" color="Blue"> Logistic Function Outputs:</font>
+<table border="1"> <tr><td>Logistic Function Outputs</td><td>Description</td></tr>
+    <tr><td>y</td><td>Solution to the logistic equation (dependent variable) [1xn]</td></tr>
+</table>
+<br>
+<font size="5" color="Blue"> Logistic Function Mask Variables: </font>
+<table border="1"> <tr><td> Logistic Function Mask Variables</td><td>Description</td></tr>
+    <tr><td>avg_rows_M</td><td>Check this box if you want to output the average of the rows</td></tr>
+    <tr><td>avg_cols_M</td><td>Check this box if you want to output the average of the columns</td></tr>
+    <tr><td>avg_all_M</td><td>Check this box if you want to output the average of all entries</td></tr>
+</table>

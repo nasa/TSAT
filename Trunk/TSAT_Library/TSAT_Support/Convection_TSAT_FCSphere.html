@@ -1,0 +1,25 @@
+<script type="text/javascript"
+     src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+<font size="6" color="Magenta">TSAT: Sphere Free Convection Library Block</font>
+<br>
+<p>Reference for the information in this help file: Incropera, F.P., and DeWitt, D.P., Fundamentals of Heat and Mass Transfer, John Wiley & Sons, New York, NY, 2002. Print. <p>
+<p>This block estimates the average Nusselt number of a free convecting flow about a sphere using a correlation recommended by Churchill. The reference and correlation is given below:<p>
+<p>S. W. Churchill, "Free Convection Around Immersed Bodies," in G. F. Hewitt, Exec. Ed., Heat Exchanger Design Handbook, Section 2.5.7, Begell Hous, New York, 2002.<p>
+$$
+Nu = 2 + \frac{0.589 Ra^{1/4}}{ \left[ 1 + \left( 0.469/Pr \right)^{9/16} \right]^{4/9} }, \: \: \left( Ra \leq 10^{11}, \: Pr \geq 0.7 \right)
+$$
+<p>The Rayliegh number should use the sphere diamter as the characteristich length. Note that all fluid properties should be evaluated at the film temperature (average of the bulk fluid and surface temperatures). This block is capable of performing multiple calculations given 1-D arrays of consistent size for the inputs.<p>
+
+<font size="5" color="Blue"> Sphere Free Convection Inputs:</font>
+<table border="1"> <tr><td>Sphere Free Convection Inputs</td><td>Description</td></tr>
+    <tr><td>Ra</td><td>Rayliegh number (Characteristic Length = Sphere Diameter) [nx1]</td></tr>
+    <tr><td>Pr</td><td>Prandtl number [nx1]</td></tr>
+</table>
+<br>
+<font size="5" color="Blue"> Sphere Free Convection Outputs:</font>
+<table border="1"> <tr><td>Sphere Free Convection Outputs</td><td>Description</td></tr>
+    <tr><td>Nu</td><td>Average Nusselt number over the circumference of the cylinder [nx1]</td></tr>
+    <tr><td>Validity</td><td>Variable indicating if the any of the applicable restrictions were violated. This value will be 1 if this condition is viloated and 0 otherwise. [nx1]</td></tr>
+</table>

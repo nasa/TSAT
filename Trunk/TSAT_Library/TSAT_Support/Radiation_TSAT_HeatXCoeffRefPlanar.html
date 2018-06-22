@@ -1,0 +1,44 @@
+<script type="text/javascript"
+     src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+<font size="6" color="Magenta">TSAT: Radiation HeatX Coefficient - Reflective Planar Surfaces Library Block</font>
+<br>
+<p>This function computes the radiation heat transfer coefficient when the radiation term is written in a linear form (q = u*(Text - Tsurf)). This block is applicable for reflective parallel planar surfaces. The equation for calculating the heat transfer coefficient is given below.<p>
+$$
+u = \frac{\sigma}{ \frac{1}{\epsilon_{surf}} + \frac{1}{\epsilon_{ext}} - 1 } \left( T_{ext}^2 + T_{surf}^2 \right) \left( T_{ext} + T_{surf} \right)
+$$
+<p>where<p>
+$$
+u = radiation \: heat \: transfer \: coefficient
+$$
+$$
+\epsilon_{surf} = emmisivity \: of \: the \: surface \: of \: interest
+$$
+$$
+\epsilon_{ext} = emmisivity \: of \: the \: external \: surface
+$$
+$$
+\sigma = Boltzmann's \: constant
+$$
+$$
+T_{surf} = temperature \: of \: the \: surface 
+$$
+$$
+T_{ext} = temperature \: of \: the \: external \: surface
+$$
+<p>This block requires specific units be used. The units are clearly indicated on the input and output ports as well as the tables below. <p>
+<p>This block accepts inputs of various dimensions as long as all inputs are consistent in dimensions. <p>
+<font size="5" color="Blue"> Radiation HeatX Coefficient - Reflective Planar Surfaces Inputs:</font>
+<table border="1"> <tr><td> Radiation HeatX Coefficient - Reflective Planar Surfaces Inputs</td><td>Description</td></tr>
+    <tr><td>Tsurf</td><td>Temperature of the surface of the object of interest (R) [nxm]</td></tr>
+    <tr><td>Text</td><td>Temperature of the external surface (R) [nxm]</td></tr>
+    <tr><td>eps_surf</td><td>Emissivity of the surface of the object of interest (-) [nxm]</td></tr>
+    <tr><td>eps_ext</td><td>Emissivity of the external surface (-) [nxm]</td></tr>
+</table>
+<br>
+<font size="5" color="Blue"> Radiation HeatX Coefficient - Reflective Planar Surfaces Outputs:</font>
+<table border="1"> <tr><td>Radiation HeatX Coefficient - Reflective Planar Surfaces Outputs</td><td>Description</td></tr>
+    <tr><td>u</td><td>Radiation heat transfer coefficient (Btu/(sec-ft^2-R)) [nxm]</td></tr>
+</table>
+<br>

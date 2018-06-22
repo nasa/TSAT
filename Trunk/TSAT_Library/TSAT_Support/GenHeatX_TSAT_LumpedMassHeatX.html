@@ -1,0 +1,46 @@
+<script type="text/javascript"
+     src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+<font size="6" color="Magenta">TSAT: Lumped Mass Heat Transfer Library Block</font>
+<br>
+<p>This function simulates heat transfer of a structural component which can be appropriately modeled as a lumped mass. A lumped mass model is typically a good approximation when the Biot number (Bi) is less than 0.1. <p>
+$$
+Bi = \frac{hL_{c}}{k_b}
+$$
+$$
+L_{c} = V/A
+$$
+<p>In the equations above, h is the heat transfer coefficient, Lc is the characteristic length, V is the volume of the body, A is it's surface area, and kb is the thermal conductivity of the body. A Boit number less than 0.1 usually results in less than 5% error with lumped mass models. The Biot number is a ratio of heat resistances inside of and at the surface of a body. For bodies with a low Boit number, the temperature of the body can be assumed constant throughout. Bodies with are surface area to volume ratios, high conductivity, and or exposure to strong convection could be likely candidates for a lumped mass approach. <p>
+<p>This block attempts to address heat transfer due to convection with a fluid but also has options that attempt to consider radiation to the fluid as well as external surfaces. The general equations solved by this block is: <p>
+$$
+mC_{p} \frac{dT}{dt} = hA \left( T_{fluid} - T \right) + u_{fluid}A \left( T_{fluid} - T \right) + u_{surf}A_{eff} \left( T_{surf} - T \right)
+$$
+<p>In the equation above, T is an array of the temperature of the body, t is time, m is the mass of the body, Cp is the specific heat of the body, A is the surface area of the body, h is the convective heat transfer coefficient, ufluid is the radiative heat transfer coefficient between the body and fluid, and usurf is the radiative heat transfer coefficient between the body and external surfaces. Aeff is the effective surface area for radiative heat transfer between the body and external surfaces which may be a function of the geometry. The radiative heat transfer coefficients are written to be proporitonal to the temperature difference and so they are strong functions of temperature. They may also be impacted by geometry, materials, and more. Some blocks exist in the TSAT Radiation Library for common geometries. <p>
+<p>This block does not require specific units be used. However, the units must be consistent. <p>
+<p>Typically this block would be used to solve for the temperature of a single point in which case all of the inputs and parameters are scalars. However, it is possible to solve various lumped mass equations with this block by specifying the inputs and parameters to be consistent arrays of the same dimensions. <p>
+<font size="5" color="Blue"> Lumped Mass Heat Transfer Inputs:</font>
+<table border="1"> <tr><td> Lumped Mass Heat Transfer Inputs</td><td>Description</td></tr>
+    <tr><td>Cp</td><td>Heat capacity of the body [nx1]</td></tr>
+    <tr><td>Tfluid</td><td>Temperature of the fluid [nx1]</td></tr>
+    <tr><td>h</td><td>Convective heat transfer coefficient [nx1]</td></tr>
+    <tr><td>uf</td><td>Radiation heat transfer coefficient between the body and fluid [nx1]</td></tr>
+    <tr><td>Trad</td><td>Temperature of the external surface participating in radiation with the body [nx1]</td></tr>
+    <tr><td>u</td><td>Radiation heat transfer coefficient between the body and an external surface [nx1]</td></tr>
+</table>
+<br>
+<font size="5" color="Blue"> Lumped Mass Heat Transfer Outputs:</font>
+<table border="1"> <tr><td>Lumped Mass Heat Transfer Outputs</td><td>Description</td></tr>
+    <tr><td>Tmass</td><td>Temperature of the body [nx1]</td></tr>
+</table>
+<br>
+<font size="5" color="Blue"> Lumped Mass Heat Transfer Mask Variables: </font>
+<table border="1"> <tr><td> Lumped Mass Heat Transfer Mask Variables</td><td>Description</td></tr>
+    <tr><td>Tmass0_M</td><td>Initial temperature of the body [nx1]</td></tr>
+    <tr><td>m_M</td><td>Mass of the body [nx1]</td></tr>
+    <tr><td>conv_M</td><td>Check this box if convection is to be considered</td></tr>
+    <tr><td>radf_M</td><td>Check this box if radiation with the fluid is to be considered</td></tr>
+    <tr><td>Aconv_M</td><td>Effective area for convective heat transfer and radiation with the fluid [nx1]</td></tr>
+    <tr><td>radc_M</td><td>Check this box if radiation with external surfaces is to be considered</td></tr>
+    <tr><td>Arad_M</td><td>Effective area for radiatio nwith external surfaces [nx1]</td></tr>
+</table>

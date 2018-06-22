@@ -1,0 +1,45 @@
+<script type="text/javascript"
+     src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+<font size="6" color="Magenta">TSAT: Simple Convective Heat Transfer Library Block</font>
+<br>
+<p>This function takes a simplistic apporach at modeling the convective heat transfer coefficient (h) of an internal flow. The equation for calculating the convective heat transfer coefficient is based on empirical models and attempts to correlate the heat transfer coefficient with mass flow rate (W) and the fluid temperature (T). <p>
+$$
+h = h_{coeff} \left( \frac{T}{T_{des}} \right)^{0.23} \left( \frac{W}{W_{des}} \right)^{0.8}
+$$   
+<p>This equation is leveraged from the following reference: <p>
+<p>Martin, S., Wallace, I., Bates, D. G., “Development and Validation of an Aero-engine Simulation Model for Advanced Controller Design,” Proceedings of the 2008 American Control Conference, Seattle, WA, 2008. <p>
+<p>In the equation above, Tdes and Wdes are the temperautre and mass flow rate of the fluid when h = hcoeff. This block allows for an option to neglect the impact of temperature in which case the equation reduces to:
+$$
+h = h_{coeff} \left( \frac{W}{W_{des}} \right)^{0.8}
+$$ 
+<p>This block can accept various units but the units must be consistent (Ex. if Wdes is in slug/sec then W must be in slug/sec, if Tdes is in degR then T must be in degR, and if hcoeff is in (Btu/(sec-ft^2-degR)) then the output h will be in (Btu/(sec-ft^2-degR))). Consistent units for standar English and SI units are given in the following table. <p>
+<font size="5" color="Blue"> Input and Parameter Unit Examples:</font>
+<table border="1"> <tr><td> Input/Parameter </td><td> English </td><td> SI </td></tr>
+    <tr><td>hcoeff_M</td><td>Btu/(sec-ft^2-R)</td><td>W/(m-K)</td></tr>
+    <tr><td>Wdes_M</td><td>slug/sec</td><td>kg/sec</td></tr>
+    <tr><td>Tdes_M</td><td>R</td><td>K</td></tr>
+    <tr><td>W</td><td>slug/sec</td><td>kg/sec</td></tr>
+    <tr><td>T</td><td>R</td><td>K</td></tr>
+</table>
+<br>
+<p>The output heat transfer coefficient will be in whatever units hcoeff is. This block can also handle inputs of various sizes as long as the inputs W and T are the same dimensions.<p>
+<br>
+<font size="5" color="Blue"> Simple Convective Heat Transfer Inputs:</font>
+<table border="1"> <tr><td> Simple Convective Heat Transfer Inputs</td><td>Description</td></tr>
+    <tr><td>W</td><td>Mass flow rate (any size, same as T)</td></tr>
+    <tr><td>T</td><td>Temperature (any size, same a W)</td></tr>
+</table>
+<br>
+<font size="5" color="Blue"> Simple Convective Heat Transfer Outputs:</font>
+<table border="1"> <tr><td>Simple Convective Heat Transfer Outputs</td><td>Description</td></tr>
+    <tr><td>h</td><td>Convective heat transfer coefficient (size of W and T)</td></tr>
+</table>
+<br>
+<font size="5" color="Blue"> Simple Convective Heat Transfer Mask Variables: </font>
+<table border="1"> <tr><td> Simple Convective Heat Transfer Mask Variables</td><td>Description</td></tr>
+    <tr><td>hcoeff_M</td><td>Convective heat transfer coefficient when W = Wdes and T = Tdes (1x1)</td></tr>
+    <tr><td>Wdes_M</td><td>Mass flow rate at the designed or a known data point (1x1)</td></tr>
+    <tr><td>Tdes_M</td><td>Temperature of the fluid at the designed or a known data point (1x1)</td></tr>
+</table>

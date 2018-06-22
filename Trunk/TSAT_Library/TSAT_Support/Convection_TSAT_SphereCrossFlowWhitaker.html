@@ -1,0 +1,39 @@
+<script type="text/javascript"
+     src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+<font size="6" color="Magenta">TSAT: Sphere Cross Flow - Whitaker Library Block</font>
+<br>
+<p>This block estimates the average Nusselt number of an external flow over an isothermal sphere using an empirical correlation developed by Whitaker:<p>
+<p>S. Whitaker., AIchE J., 18, 361, 1972.<p>
+<p>The correlation is:<p>
+$$
+Nu = 2 + \left( 0.4Re^{1/2} + 0.06Re^{2/3} \right)Pr^{0.4} \left( \frac{\mu}{\mu_{s}} \right)^{1/4}
+$$
+<p>where<p>
+$$
+Nu = Nusselt \: number, \: Re = Reynolds \: number, \: Pr = Prandtl \: number
+$$
+$$
+\mu = vicosity, \: \mu_{s} = viscosity \: at \: surface \: temperature 
+$$
+<p>The Reynolds number should be calculated based on the diameter of the sphere. Note that all fluid properrties should be evaluated at freestream temperature except for mus (the viscosity at the surface temperature). The correlation is subject to the following restrictions:<p>
+$$
+3.5 \leq Re \leq 76000, \: 0.71 \leq Pr \leq 380, \: 1.0 \leq \mu/\mu{s} \leq 3.2
+$$
+<p>This block is capable of performing multiple Nusselt number approximations given 1-D input arrays of the same size.<p>
+    
+<font size="5" color="Blue"> Sphere Cross Flow - Whitaker Inputs:</font>
+<table border="1"> <tr><td> Sphere Cross Flow - Whitaker Inputs</td><td>Description</td></tr>
+    <tr><td>Re</td><td>Reynolds number (based on the diameter of the sphere) [nx1]</td></tr>
+    <tr><td>Pr</td><td>Prandtl number [nx1]</td></tr>
+    <tr><td>mu</td><td>Viscosity of the fluid [nx1]</td></tr>
+    <tr><td>mus</td><td>Viscosity of the fluid at the surface temperature [nx1]</td></tr>
+</table>
+<br>
+<font size="5" color="Blue"> Sphere Cross Flow - Whitaker Outputs:</font>
+<table border="1"> <tr><td>Sphere Cross Flow - Whitaker Outputs</td><td>Description</td></tr>
+    <tr><td>Nu</td><td>Average Nusselt number [nx1]</td></tr>
+    <tr><td>Validity</td><td>Variable indicating if the Re and Pr restictions are violated or not. The value of 1 if a violation is present and 0 otherwise. [nx1]</td></tr>
+</table>
+<br>

@@ -1,0 +1,30 @@
+<script type="text/javascript"
+     src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+<font size="6" color="Magenta">TSAT: Cylinder Cross Flow - Churchill & Bernstein Library Block</font>
+<br>
+<p>This block estimates the average Nusselt number of an external flow over an isothermal cylinder using a correlation developed by Churchill and Bernstein:<p>
+<p>S.W. Chruchill, and M. Bernstein, J. Heat Transfer, 99, 300, 1977.<p>
+<p>The correlation is:<p>
+$$
+Nu = 0.3 + \frac{0.62Re^{1/2}Pr^{1/3}}{\left[ 1 + (0.4/Pr)^{2/3} \right]^{1/4}} \left[ 1 + \left( \frac{Re}{282000} \right)^{5/8} \right]^{4/5}
+$$
+<p>where Nu is the Nusselt number, Re is the Reynolds number (with characteristic length = diameter of the cylinder), and Pr is the Prandtl number. Note that all fluid properrties should be evaluated at film temperature. The correlation is valid for a wide range of conditions but subject to the following restrictions:
+$$
+RePr \geq 0.2
+$$
+<p>This block is capable of performing multiple Nusselt number approximations given 1-D input arrays of the same size.<p>
+    
+<font size="5" color="Blue"> Cylinder Cross Flow - Churchill & Bernstein Inputs:</font>
+<table border="1"> <tr><td> Cylinder Cross Flow - Churchill & Bernstein Inputs</td><td>Description</td></tr>
+    <tr><td>Re</td><td>Reynolds number (based on the diameter of the cylinder) [nx1]</td></tr>
+    <tr><td>Pr</td><td>Prandtl number [nx1]</td></tr>
+</table>
+<br>
+<font size="5" color="Blue"> Cylinder Cross Flow - Churchill & Bernstein Outputs:</font>
+<table border="1"> <tr><td>Cylinder Cross Flow - Churchill & Bernstein Outputs</td><td>Description</td></tr>
+    <tr><td>Nu</td><td>Average Nusselt number [nx1]</td></tr>
+    <tr><td>Validity</td><td>Variable indicating if the Re and Pr restictions are violated or not. The value of 1 if a violation is present and 0 otherwise. [nx1]</td></tr>
+</table>
+<br>

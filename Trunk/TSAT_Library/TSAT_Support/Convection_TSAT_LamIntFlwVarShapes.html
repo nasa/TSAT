@@ -1,0 +1,42 @@
+<script type="text/javascript"
+     src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+<font size="6" color="Magenta">TSAT: Laminar Internal Flow for Various Shapes Library Block</font>
+<br>
+<p>Reference for the information in this help file: Incropera, F.P., and DeWitt, D.P., Fundamentals of Heat and Mass Transfer, John Wiley & Sons, New York, NY, 2002. Print. <p>
+<p>This block provides the Nusselt number for fully developed laminar flow within tubes of different cross-sections. For internal flow this typically means the Reynolds number is less than ~2300. Shape options include circular, rectangular, and triangular cross-sections with isothermal and isoflux surfaces. In the case of rectangular flow paths the scenario of an infinite aspect ratio flow path is considered. This situation has options for when both sides of the flow path are heated and when one side is heated and the other is insulated. Note that when using the Nusselt number to calculate the convective heat transfer coefficient, the hydraulic diameter should be used.<p>
+<p>For fully-developed laminar flow the Nusselt number is a constant. For turbulent flow, circular tube correlations may be used for non-circular cross-sections as an approoximation with hydraulic diameter in place of the tube diameter. However, laminar flow is more strongly impacted by the cross-sectin shape and thus requires additional considerations. Conditions also differ dependent on the surface thermal condition. For a select set of cross-section shaps the following results are used to produce outputs for this block:<p>
+
+<font size="5" color="Blue"> Nusselt number (Nu) for various shapes:</font>
+<table border="1"> <tr><td>Cross-section Shape</td><td>Aspect Ratio (b/a)</td><td>Isothermal Nu</td><td>Isoflux Nu</td></tr>
+    <tr><td>Circle</td><td>--</td><td>3.66</td><td>4.36</td></tr>
+    <tr><td>Rectangle (Square)</td><td>1</td><td>2.98</td><td>3.61</td></tr>
+    <tr><td>Rectangle</td><td>1.43</td><td>3.08</td><td>3.73</td></tr>
+    <tr><td>Rectangle</td><td>2</td><td>3.39</td><td>4.12</td></tr>
+    <tr><td>Rectangle</td><td>3</td><td>3.96</td><td>4.79</td></tr>
+    <tr><td>Rectangle</td><td>4</td><td>4.44</td><td>5.33</td></tr>
+    <tr><td>Rectangle</td><td>8</td><td>5.60</td><td>6.49</td></tr>
+    <tr><td>Rectangle</td><td>infinity</td><td>7.54</td><td>8.23</td></tr>
+    <tr><td>Rectangle</td><td>infinity</td><td>4.86</td><td>5.39</td></tr>
+    <tr><td>Equilateral Triangle</td><td>--</td><td>2.49</td><td>3.11</td></tr>
+</table>
+<br>
+    
+<p>The data for rectangles with aspect ratios between 1 and infinity is used to interpolate results for any arbitrary aspect ratio. To do this the relationship between the Nusselt number and aspect ratio was refined using cubic spline interpolation and those results are then interpolated in the block for rectangles with a finite aspect ratio.<p>
+<p>This block is capable of performing multiple Nusselt number approximations. This is really only applicable for rectangular tubes with a finite aspect ratios in which the aspect ratio parameter (boa_M) is a 1-D array.<p>
+    
+<font size="5" color="Blue"> Laminar Internal Flow for Various Shapes Outputs:</font>
+<table border="1"> <tr><td>Laminar Internal Flow for Various Shapes Outputs</td><td>Description</td></tr>
+    <tr><td>Nu</td><td>Average Nusselt number over the perimeter [nx1]</td></tr>
+</table>
+<br>
+<font size="5" color="Blue"> Laminar Internal Flow for Various Shapes Masked Variables:</font>
+<table border="1"> <tr><td>Laminar Internal Flow for Various Shapes Masked Variables</td><td>Description</td></tr>
+    <tr><td>Shape_M</td><td>Variable indicating the shape of the cross-ection of the tube</td></tr>
+    <tr><td>IsothermOrIsoflux_M</td><td>Variable indicating whether the surface thermal condition is constant temperature (isothermal) or constant heat flux (isoflux)</td></tr>
+    <tr><td>FinOrInf_M</td><td>Variable indicating if the aspect ratio is finite or infinite (only applicable for rectangular cross-sections)</td></tr>
+    <tr><td>boa_M</td><td>Aspect ratio of the rectangular cross-section [nx1] (only applicable to rectangular cross-sections with a finite aspect ratio)</td></tr>
+    <tr><td>HeatBothOrInsulateOne_M</td><td>Variable indicating if both sides of a rectangular crossection are heated or if one side is insulated (only applicable for rectangular cross-sections with an infinite length)</td></tr>
+</table>
+<br>

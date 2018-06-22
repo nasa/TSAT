@@ -1,0 +1,30 @@
+<script type="text/javascript"
+     src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+<font size="6" color="Magenta">TSAT: Interface Temperature Library Block</font>
+<br>
+<p>This function is meant for estimating the temperature at an interface in a structure with multiple paths to transmit heat. This could be applicable to transitions in material or geometries in which various components connect together at the same location. Each connection to the interface has a temperature associated with it that is adjacent to the interface and a thermal resistance. The interface temperature is estimated using a weighted averaging technique based on the thermal resistances. Below is the equation for calculating the interface temperature if it is a point (vs. a line). <p>
+$$
+T_{int} = \frac{\sum_{i=1}^{i=n} T_{i}R_{i}}{\sum_{i=1}^{i=n} R_{i}}
+$$
+<p>In the equation above, T is an array of the temperatures adjacent to the interface, R is the thermal resistance, and n is the number of total connections to the interface. <p>
+<p>There are different options for the interface which allows it to be treated as horizontal line, vertical line, or a single point. If the interface is a horizontal line then all inputs and parameters should be input as a 2xm matrix and the output will be the interface temperature along the horizontal interface which forms a 1xm array. Similarly if the interface is a vertical line then the inputs and parameters should be an nx2 matrix and the output will be an nx1 array of the interface temperature along the vertical line. If the interface is a single point then the inputs and parameters should be a 1-D array or more generally an nxm matrix and the output will be the scalar interface temperature. <p>
+<p>This block does not require specific units be used. However, the units must be consistent. All elements of a given input or parameter should be in the same units. <p>
+<font size="5" color="Blue"> Interface Temperature Inputs:</font>
+<table border="1"> <tr><td> Interface Temperature Inputs</td><td>Description</td></tr>
+    <tr><td>T</td><td>Array of temperatures of points adjacent to the interface [2xm, nx2, or nxm]</td></tr>
+    <tr><td>R</td><td>Array of thermal resistances between adjacent points to the interface [2xm, nx2, or nxm]</td></tr>
+</table>
+<br>
+<font size="5" color="Blue"> Interface Temperature Outputs:</font>
+<table border="1"> <tr><td>Interface Temperature Outputs</td><td>Description</td></tr>
+    <tr><td>T_int</td><td>The interface temperature. Dimensions are dependent on parameter selection and inputs [1xm, nx1, or 1x1].</td></tr>
+</table>
+<br>
+<font size="5" color="Blue"> Interface Temperature Mask Variables: </font>
+<table border="1"> <tr><td> Interface Temperature Mask Variables</td><td>Description</td></tr>
+    <tr><td>int_horiz_M</td><td>Check this box if the interface is a horizontal line</td></tr>
+    <tr><td>int_vert_M</td><td>Check this box if the interface is a vertical line</td></tr>
+    <tr><td>int_pt_M</td><td>Check this box if the interface is a single point</td></tr>
+</table>

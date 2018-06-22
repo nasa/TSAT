@@ -1,0 +1,66 @@
+<script type="text/javascript"
+     src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+<font size="6" color="Magenta">TSAT: Flat Plate Incompressible Mixed Boundary Layer (Zero PG) Library Block</font>
+<br>
+<p>Reference for the information in this help file: Incropera, F.P., and DeWitt, D.P., Fundamentals of Heat and Mass Transfer, John Wiley & Sons, New York, NY, 2002. Print. <p>
+<p>This block approximates the boundary layer and thermal boundary layer thicknesses of incompressible mixed flow over a flat plate with a pressure gradient of 0. It determines the transition location by the transition Reynolds number or a trip location, whichever is closer to the leading edge. <p>
+$$
+x_{tr} = x_{trip} \: \: if \: \: \frac{\rho u x_{trip}}{\mu} < Re_{tr}
+$$
+$$
+otherwise \: \: x_{tr} = \frac{Re_{tr} \mu}{\rho u}
+$$
+<p>For a laminar bounary layer the thickness is computed with:<p>
+$$
+\delta = \frac{5x}{Re_{x}^{1/2}}, \: Re_{x} = \frac{\rho u x}{\mu}
+$$
+$$
+\delta_t = \delta Pr^{-0.4}
+$$
+<p>For turbulent boundary layers:
+$$
+\delta = \frac{0.37x}{Re_{x}^{1/5}}
+$$
+$$
+\delta_t = \delta \: (approximately)
+$$
+<p>However these equation are for a purely laminar or turbulent flow. In a mixed flow the boundary layer transitions from laminar to turbulent at some point. Here, the boundary layer upstream of the transition location is calculated based on the laminar boundary layer solution while downstream the turbulent solution is used. The turbulent solution is shifted such that it intersects the laminar solution at the transition location.<p>
+$$
+5x_{tr} \left( \frac{\rho u x_{tr}}{\mu} \right)^{-1/2} = 0.37 \left( x_{tr} - x_{o} \right) \left( \frac{\rho u \left( x_{tr} - x_{o} \right) }{\mu} \right)^{-1/5} \rightarrow \: solve \: for \: x_{o}
+$$
+$$
+5x_{tr} \left( \frac{\rho u x_{tr}}{\mu} \right)^{-1/2} Pr^{-0.4} = 0.37 \left( x_{tr} - x_{o,t} \right) \left( \frac{\rho u \left( x_{tr} - x_{o,t} \right) }{\mu} \right)^{-1/5} \rightarrow \: solve \: for \: x_{o,t}
+$$
+<p>These equations are solved in the block using the secant root method. The boundary layer solutions are then:
+$$
+\delta = \frac{5x}{\left( \frac{\rho u x}{\mu} \right)^{1/2}}, \: \: \delta_t = \delta Pr^{-0.4} \: \: for \: x \leq x_{tr}
+$$
+$$
+\delta = \frac{0.37 \left(x - x_{o} \right)}{\left( \frac{\rho u \left(x - x_{o} \right)}{\mu} \right)^{1/5}}, \: \: \delta_t = \frac{0.37 \left(x - x_{o,t} \right)}{\left( \frac{\rho u \left(x - x_{o,t} \right)}{\mu} \right)^{1/5}} \: \: for \: x > x_{tr}
+$$
+<p>This block is capable of performing multiple calculations given a 1-D array of the location parameter x_M. In this sense it could be used to calculate the boundary layer thickness for the span of the flat plate. The units of the inputs and parameters do not matter as long as they are consistent.<p>
+
+<font size="5" color="Blue"> Flat Plate Incompressible Mixed Boundary Layer (Zero PG) Inputs:</font>
+<table border="1"> <tr><td>Flat Plate Incompressible Mixed Boundary Layer (Zero PG) Inputs</td><td>Description</td></tr>
+    <tr><td>rho_u</td><td>Product of density and velocity [1x1]</td></tr>
+    <tr><td>mu</td><td>Viscosity [1x1]</td></tr>
+    <tr><td>Pr</td><td>Prandtl number [1x1]</td></tr>
+</table>
+<br>
+<font size="5" color="Blue"> Flat Plate Incompressible Mixed Boundary Layer (Zero PG) Outputs:</font>
+<table border="1"> <tr><td>Flat Plate Incompressible Mixed Boundary Layer (Zero PG) Outputs</td><td>Description</td></tr>
+    <tr><td>del</td><td>Boundary layer [nx1]</td></tr>
+    <tr><td>delt</td><td>Thermal boundary layer [nx1]</td></tr>
+    <tr><td>conv</td><td>Variable indicating if the solution for the location of the start of the turbulent boundary layer (xo) converged. The value will be 1 if it converged and 0 otherwise. [1x1]</td></tr>
+    <tr><td>convt</td><td>Variable indicating if the  solution for the location of the start of the turbulent thermal boundary layer (xot) converged. The value will be 1 if it converged and 0 otherwise. [1x1]</td></tr>
+</table>
+<br>
+<font size="5" color="Blue"> Flat Plate Incompressible Mixed Boundary Layer (Zero PG) Masked Variables:</font>
+<table border="1"> <tr><td>Flat Plate Incompressible Mixed Boundary Layer (Zero PG) Masked Variables</td><td>Description</td></tr>
+    <tr><td>x_M</td><td>Local position relative to the leading edge. This value should be positive. [nx1]</td></tr>
+    <tr><td>Retr_M</td><td>Transition Reynolds number [1x1]</td></tr>
+    <tr><td>xtrip_M</td><td>Location of a boundary layer trip to force transition to turbulent flow. If such a trip does not exist then this input should be inf [1x1]</td></tr>
+</table>
+<br>

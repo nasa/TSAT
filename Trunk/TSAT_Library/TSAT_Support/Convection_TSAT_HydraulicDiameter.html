@@ -1,0 +1,23 @@
+<script type="text/javascript"
+     src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+<font size="6" color="Magenta">TSAT: Hydraulic Diameter Library Block</font>
+<br>
+<p>Reference for the information in this help file and the presented correlation: Incropera, F.P., and DeWitt, D.P., Fundamentals of Heat and Mass Transfer, John Wiley & Sons, New York, NY, 2002. Print.<p>
+<p>This block calculates the hydraulic diameter (Dh) of an arbitrary shape based on its area (A) and perimeter (P). The units of the inputs must be consistent and the units of the outputs will be the same as the length unit used in the inputs. The hydrualic diameter is useful for evaluating heat transfer in non-circular tubes. The equation for calculating the hydraulic diameter is simply:<p>
+$$
+Dh = \frac{4A}{P}
+$$
+<p>In most applications this block may be used to return a single hydraulic diameter for a single tube of constant cross-sectional shape. However, this block does have ability to perform multiple calculations given consistently sized 1-D arrays for each of the inputs.<p>
+
+<font size="5" color="Blue"> Hydraulic Diameter Inputs:</font>
+<table border="1"> <tr><td> Hydraulic Diameter Inputs</td><td>Description</td></tr>
+    <tr><td>A</td><td>Area of the cross-section [nx1]</td></tr>
+    <tr><td>P</td><td>Perimeter of the cross-section [nx1]</td></tr>
+</table>
+<br>
+<font size="5" color="Blue"> Hydraulic Diameter Outputs:</font>
+<table border="1"> <tr><td> Hydraulic Diameter Outputs</td><td>Description</td></tr>
+    <tr><td>Dh</td><td>Hydraulic diameter [nx1]</td></tr>
+</table>

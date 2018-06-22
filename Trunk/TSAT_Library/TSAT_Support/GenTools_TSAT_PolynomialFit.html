@@ -1,0 +1,32 @@
+<script type="text/javascript"
+     src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+<font size="6" color="Magenta">TSAT: Polynomial Fit Library Block</font>
+<br>
+<p>This block allow for on-the-fly polynomial fits to data. The power of the polynomial is given as a parameter and the data is the inputs. The output is the polynomial coefficients:<p>
+$$
+y(x) = a_0 + a_1x + a_2x^2 + ... + a_Nx^N
+$$
+$$
+a = [a_0 \: a_1 \: a_2 \: ... \: a_N]
+$$
+<p>Note that the data arrays must be the same length and the power of the polynomial must be a positive integer that is less than or equal to the number of data points. Furthermore the x data must be monotonically increasing and both data vectors must be made entirely of finite numbers.<p>
+
+<font size="5" color="Blue"> Polynomial Fit Inputs:</font>
+<table border="1"> <tr><td>Polynomial Fit Inputs</td><td>Description</td></tr>
+    <tr><td>xdata</td><td>Independent variable data [nx1]</td></tr>
+    <tr><td>ydata</td><td>Dependent variable data [nx1]</td></tr>
+</table>
+<br>
+<font size="5" color="Blue"> Polynomial Fit Outputs:</font>
+<table border="1"> <tr><td>Polynomial Fit Outputs</td><td>Description</td></tr>
+    <tr><td>a</td><td>Polynomial coefficients [(N+1)x1]</td></tr>
+</table>
+<br>
+<font size="5" color="Blue">Polynomial Fit Masked Variables:</font>
+<table border="1"> <tr><td>Polynomial Fit Masked Variables</td><td>Description</td></tr>
+    <tr><td>N_M</td><td>Power of the polynomial [1x1]</td></tr>
+    <tr><td>BN_M</td><td>Block name. It's a hidden parameter used for error reporting purposes.</td></tr>
+</table>
+<br>

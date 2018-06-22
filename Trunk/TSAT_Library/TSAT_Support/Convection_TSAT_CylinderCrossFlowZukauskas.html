@@ -1,0 +1,42 @@
+<script type="text/javascript"
+     src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+<font size="6" color="Magenta">TSAT: Cylinder Cross Flow - Zukauskas Library Block</font>
+<br>
+<p>This block estimates the average Nusselt number of an external flow over an isothermal cylinder. The correlation employed was the work of Zukauskas:<p>
+<p>A. Zukauskas, "Heat Transfer from Tubes in Cross Flow," in H.P. Hartnett and T.F. Irvine, Jr., Eds, Advanaces in Heat Transfer, Vol. 8, Academic Press, New York, 1972.<p>
+<p>and was originally developed by Hilpert:<p>
+<p>R. Hilpert, Forsch . Geb. Ingenieurwes., 4 ,215, 1933<p>
+<p>The modifications seeks to account for variations in fluid properties.<p>
+$$
+Nu = CRe^{m}Pr^{n} \left( \frac{Pr}{Pr_{s}} \right)^{1/4}
+$$
+<p>where Nu is the Nusselt number, Re is the Reynolds number (with characteristic length = diameter of the cylinder), Pr is the Prandtl number, Prs is the Prandtl number evaluated at the surface temperature of the cylinder, n is 0.37 for Pr <= 10 and 0.36 for Pr >= 10, and the coefficients C and m are given in the table below:<p>
+<font size="5" color="Blue"> Model Coefficients:</font>
+<table border="1"><tr><td>Re</td><td>C</td><td>m</td></tr>
+    <tr><td>0.4-40</td><td>0.75</td><td>0.4</td></tr>
+    <tr><td>40-1000</td><td>0.51</td><td>0.5</td></tr>
+    <tr><td>1000-200000</td><td>0.26</td><td>0.6</td></tr>
+    <tr><td>200000-1000000</td><td>0.076</td><td>0.7</td></tr>
+</table>
+<br>
+<p>Note that all fluid properrties other than Prs should be evaluated at free stream temperature (NOT THE FILM TEMPERATURE). The correlation is subject to the following restrictions:
+$$
+1 \leq Re \leq 1000000, \: 0.7 \leq Pr \leq 500
+$$
+<p>This block is capable of performing multiple Nusselt number approximations given 1-D input arrays of the same size.<p>
+    
+<font size="5" color="Blue"> Cylinder Cross Flow - Zukauskas Inputs:</font>
+<table border="1"> <tr><td> Cylinder Cross Flow - Zukauskas Inputs</td><td>Description</td></tr>
+    <tr><td>Re</td><td>Reynolds number (based on the diameter of the cylinder) [nx1]</td></tr>
+    <tr><td>Pr</td><td>Prandtl number [nx1]</td></tr>
+    <tr><td>Prs</td><td>Prandtl number evaluated at the cylinder surface temperature [nx1]</td></tr>
+</table>
+<br>
+<font size="5" color="Blue"> Cylinder Cross Flow - Zukauskas Outputs:</font>
+<table border="1"> <tr><td>Cylinder Cross Flow - Zukauskas Outputs</td><td>Description</td></tr>
+    <tr><td>Nu</td><td>Average Nusselt number [nx1]</td></tr>
+    <tr><td>Validity</td><td>Variable indicating if the Re and Pr restictions are violated or not. The value of 1 if a violation is present and 0 otherwise. [nx1]</td></tr>
+</table>
+<br>

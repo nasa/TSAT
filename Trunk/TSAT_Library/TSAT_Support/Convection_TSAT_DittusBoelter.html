@@ -1,0 +1,33 @@
+<script type="text/javascript"
+     src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+<font size="6" color="Magenta">TSAT: Dittus-Boelter Library Block</font>
+<br>
+<p>Reference for the information in this help file and the presented correlation: Incropera, F.P., and DeWitt, D.P., Fundamentals of Heat and Mass Transfer, John Wiley & Sons, New York, NY, 2002. Print.<p>
+<p>The block approximates the local Nusselt number for fully developed turbulent flow in a smooth circular tube using the Dittus-Boelter equation.<p>
+$$
+Nu = 0.023Re^{4/5}Pr^{n}
+$$
+$$
+n = 0.4 \: for \: Ts > Tf \: , \: n = 0.3 \: for \: Ts < Tf
+$$
+<p>Nu is the Nusselt number, Re is the Reynolds number, and Pr is the Prandtl number. For tubes with different shaped cross-sections this correlation can be used a first approximation with the hydraulic diameter of the tube used in place of the tube diameter. The equation has some dependence on whether the tube is being heated or cooled and hence the need for temperature inputs for the surface of the tube (Ts) and mean temperature of the fluid (Tf). All properties should be evaluated at the mean fluid temperature Tf. This correlation has the following restrictions: <p>
+$$
+0.6 \leq Pr \leq 160, \: Re \geq 10000
+$$
+<p>If any of these conditions are not met then the Validty output will be 1, otherwise it will be 0. Also keep in mind that the fully developed assumption typically meanse the local point of interest be at a lenght from the inlet that is 10 times the tube diameter. This correlation is a good approxiamtion for uniform surface temperature and heat flux conditions. If there are large variations in the temperature and thus properties then the Sieder-Tate correlation may be a better approximation. In most application this block may be used to return a single Nusselt number for a single pipe of uniform conditions. However, this block does have ability to perform multiple calculations of Nusselt number given consistently sized 1-D arrays for each of the inputs. The temperature inputs can be in any temperature unit as long as they are both in the same units. In fact it is only important that the temperatures indicate which one is hotter or cooler. The values themselves are not used.<p>
+
+<font size="5" color="Blue"> Dittus-Boelter Inputs:</font>
+<table border="1"> <tr><td> Dittus-Boelter Inputs</td><td>Description</td></tr>
+    <tr><td>Re</td><td>Reynolds number based on the pipe diameter [nx1]</td></tr>
+    <tr><td>Pr</td><td>Prandtl number [nx1]</td></tr>
+    <tr><td>Ts</td><td>Surface temperature of the pipe [nx1]</td></tr>
+    <tr><td>Tf</td><td>Mean temperature of the fluid in the pipe [nx1]</td></tr>
+</table>
+<br>
+<font size="5" color="Blue"> Dittus-Boelter Outputs:</font>
+<table border="1"> <tr><td>Dittus-Boelter Outputs</td><td>Description</td></tr>
+    <tr><td>Nu</td><td>Local Nusselt number [nx1]</td></tr>
+    <tr><td>Validity</td><td>Variable indicating if the correlation is valid for the given conditions. If Re or Pr restriction are viotlated then Validity will be 1 to indicate the result as invalid. Otherwise Validity = 0. [nx1]</td></tr>
+</table>

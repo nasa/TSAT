@@ -1,0 +1,27 @@
+<script type="text/javascript"
+     src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+<font size="6" color="Magenta">TSAT: Horizontal Rectangular Cavity (Heated Bottom) Library Block</font>
+<br>
+<p>Reference for the information in this help file: Incropera, F.P., and DeWitt, D.P., Fundamentals of Heat and Mass Transfer, John Wiley & Sons, New York, NY, 2002. Print. <p>
+<p>This block gives first approximation of the average Nusselt number of free convection within a rectangular horizontal cavity with the bottom side heated. The correlation employed was recommended by Globe and Dropkin. The Reference, eqaution, and additonal restrictions are listed below:<p>
+<p>S. Globe, and D. Dropkin, J. Heat Transfer, 81C, 24, 1959.<p>
+$$
+Nu = 0.069Ra^{1/3}Pr^{0.074}, \: \: 3 \times 10^{5} \leq Ra 7 \times 10^{9}
+$$
+<p>Ra is the Rayliegh number and Pr is the Prandtl number. Note that all fluid properrties should be evaluated at average of the hot and cold surface. The correlation applies for values of L/H that are sufficiently small such that the effects of the side walls are negligible. L is the distance between the top and bottom surface and H is the distance between the side surfaces.
+<p>This block is capable of performing multiple calculations given 1-D arrays of consistent size for the inputs and parameters.<p>
+
+<font size="5" color="Blue"> Horizontal Rectangular Cavity (Heated Bottom) Inputs:</font>
+<table border="1"> <tr><td>Horizontal Rectangular Cavity (Heated Bottom) Inputs</td><td>Description</td></tr>
+    <tr><td>Ra</td><td>Rayliegh number [nx1]</td></tr>
+    <tr><td>Pr</td><td>Prandtl number [nx1]</td></tr>
+</table>
+<br>
+<font size="5" color="Blue"> Horizontal Rectangular Cavity (Heated Bottom) Outputs:</font>
+<table border="1"> <tr><td>Horizontal Rectangular Cavity (Heated Bottom) Outputs</td><td>Description</td></tr>
+    <tr><td>Nu</td><td>Average Nusselt number [nx1]</td></tr>
+    <tr><td>Validity</td><td>Variable indicating if the Rayleigh number restrictions were violated. This value will be 1 if this condition is viloated and 0 otherwise. [nx1]</td></tr>
+</table>
+<br>

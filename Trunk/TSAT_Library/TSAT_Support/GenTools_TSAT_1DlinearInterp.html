@@ -1,0 +1,23 @@
+<script type="text/javascript"
+     src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+<font size="6" color="Magenta">TSAT: 1D Linear Interpolation Library Block</font>
+<br>
+<p>This block performs linear interpolation on a set of data (x_data, y_data) at interpolation points defined in the array x_int. The inputs must be the appropriate dimensions which are noted in the tables below. If incorrect dimension are specified then y_int will be output as an array of ones the size of x_int and a warning will be printed to the screen. The independent data array, x_data, must be monotonically increasing. If x_int has values in it that are outside the range of x_data then y_int will be assigned the value of the y_data array at the closest data point. <p>
+<font size="5" color="Blue"> 1D Linear Interpolation Inputs:</font>
+<table border="1"> <tr><td> 1D Linear Interpolation Inputs</td><td>Description</td></tr>
+    <tr><td>x_data</td><td>1-D array of data corresponding to the independent variable [nx1]</td></tr>
+    <tr><td>y_data</td><td>1-D array of data corresponding to the dependent variable [nx1]</td></tr>
+    <tr><td>x_int</td><td>1-D array of interpolation points corresponding to the independent variable [px1]</td></tr>
+</table>
+<br>
+<font size="5" color="Blue"> 1D Linear Interpolation Outputs:</font>
+<table border="1"> <tr><td>1D Linear Interpolation Outputs</td><td>Description</td></tr>
+    <tr><td>y_int</td><td>1-D array of interpolation points corresponding to the dependent variable [px1]</td></tr>
+</table>
+<br>
+<font size="5" color="Blue"> 1D Linear Interpolation Mask Variables: </font>
+<table border="1"> <tr><td> 1D Linear Interpolation Mask Variables</td><td>Description</td></tr>
+    <tr><td>BN_M</td><td>Block name (hidden variable that is used in warning messages)</td></tr>
+</table>

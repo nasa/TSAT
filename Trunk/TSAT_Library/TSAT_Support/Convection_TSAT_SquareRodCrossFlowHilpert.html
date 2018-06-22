@@ -1,0 +1,48 @@
+<script type="text/javascript"
+     src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+<font size="6" color="Magenta">TSAT: Square Rod Cross Flow - Hilpert Library Block</font>
+<br>
+<p>This block estimates the average Nusselt number of an external flow over an isothermal rod with a square cross-section. The correlation employed was originally developed by Hilpert and has been modified to address non-circular cross-sectional shapes:<p>
+<p>R. Hilpert, Forsch . Geb. Ingenieurwes., 4 , 215, 1933<p>
+<p>M. Jakoh, Heat Transfer, Vol. 1, Wiley, New York, 1949<p>
+<p>E. M. Sparrow, J. P. Abraham, and J. C. K. Tong, Int. J. Heat Mass Transfer, 47, 5285, 2004<p>
+<p>and has been modified to account for fluids with a wider range of Prandtl numbers. It has options to address the case in which the flow is directed at a point of the square or a side. The equation is given as:<p>
+$$
+Nu = CRe^{m}Pr^{1/3}
+$$
+<p>where Nu is the Nusselt number, Re is the Reynolds number, Pr is the Prandtly number, and the coefficients C and m are given in the table below:<p>
+<font size="5" color="Blue"> Model Coefficients:</font>
+<table border="1"><tr><td>Flow direction</td><td>C</td><td>m</td></tr>
+    <tr><td>Flow at point</td><td>0.304</td><td>0.59</td></tr>
+    <tr><td>Flow at face</td><td>0.158</td><td>0.66</td></tr>
+</table>
+<br>
+<p>Note that when the flow is directed at a face, the Reynolds number should be calculated based on the length of the sides of the square and when the flow is directed at a point, the Reynolds number should be calculated based on the length from opposite points of the square. The properties of the fluid should be evaluated at the film temperature. The correlation is subject to the following restrictions when the flow is directed at a point:<p>
+$$
+6000 \leq Re \leq 60000, Pr \geq 0.7
+$$
+<p>and the following restrictions when the flow is directed at a side:<p>
+$$
+5000 \leq Re \leq 60000, Pr \geq 0.7
+$$
+<p>This block is capable of performing multiple Nusselt number approximations given 1-D input arrays of the same size.<p>
+    
+<font size="5" color="Blue"> Square Rod Cross Flow - Hilpert Inputs:</font>
+<table border="1"> <tr><td> Square Rod Cross Flow - Hilpert Inputs</td><td>Description</td></tr>
+    <tr><td>Re</td><td>Reynolds number [nx1]</td></tr>
+    <tr><td>Pr</td><td>Prandtl number [nx1]</td></tr>
+</table>
+<br>
+<font size="5" color="Blue"> Square Rod Cross Flow - Hilpert Outputs:</font>
+<table border="1"> <tr><td>Square Rod Cross Flow - Hilpert Outputs</td><td>Description</td></tr>
+    <tr><td>Nu</td><td>Average Nusselt number [nx1]</td></tr>
+    <tr><td>Validity</td><td>Variable indicating if the Re and Pr restictions are violated or not. The value of 1 if a violation is present and 0 otherwise. [nx1]</td></tr>
+</table>
+<br>
+<font size="5" color="Blue"> Square Rod Cross Flow - Hilpert Masked Variables:</font>
+<table border="1"> <tr><td>Square Rod Cross Flow - Hilpert Masked Variables</td><td>Description</td></tr>
+    <tr><td>PointOrFace_M</td><td>Variable indicating if the flow is directed toward a point or side of the square (edge or face of the rod)</td></tr>
+</table>
+<br>

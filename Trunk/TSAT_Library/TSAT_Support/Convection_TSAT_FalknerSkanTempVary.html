@@ -1,0 +1,82 @@
+<script type="text/javascript"
+     src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+<font size="6" color="Magenta">TSAT: Falkner-Skan (Tw-Te = Polynomial) Library Block</font>
+<br>
+<p>Reference for the information in this help file: White, F.M., Viscous Fluid Flow 3rd Ed., McGraw Hill, New York, NY, 2006. Print. <p>
+<p>This block implements the Falkner-Skan solution to laminar-boundary-layer flow and addresses temperature variations between the wall and free-stream using the method of indicial solutions (superposition). This block is nearly identical to the "Falkner-Skan (Tw-Te = Constant)" block: <p>
+<a href="Convection_TSAT_FalknerSkan.html">Falkner-Skan (Tw - Te = Constant)</a>
+<p>The exception is this block attempts to address temperature variations between the wall and free-stream which impact heat transfer. Solution of the hydrodynamic boundary layer is the same as before. Complexities with the varying wall temperature make it difficult to resolve the temperature profiles within the boundary layer but superposition by indicial solution can be used to estimate the local heat transfer based on fact that the thermal-energy equation is linear. In general the local heat transfer at the wall is:<p>
+$$
+q_w(x) = \int_{0}^{x} h(x_0,x) \frac{d(T_w-T_e)}{dx_0} dx_0
+$$
+<p>where<p>
+$$
+h(x_0,x) = \frac{k}{x} \sqrt{ \frac{1+m}{2} } G(Pr,\beta) Re^{1/2} \left[ 1 - \left( \frac{x_0}{x} \right)^{3/4} \right]^{-1/3}
+$$
+<p>The variables are defined as follows:<p>
+$$
+x = Position \: along \: the \: surface, \: x_0 = Position \: the \: solution \: began
+$$
+$$
+q_w = Heat \: flux \: at \: the \: wall, \: h = Convective \: heat \: transfer \: coefficient
+$$
+$$
+T_w = Temperature \: of \: the \: wall, \: T_e = Temperature \: of \: the \: free-stream
+$$
+$$
+Pr = Prandtl \: number, \: Re = Reynolds \: number = xU(x)/\nu, \: \beta = Pressure \: gradient \: variable = \frac{2m}{1+m}
+$$
+$$
+k = Thermal \: conductivity \: of \: the \: fluid, \: G = Falkner-Skan \: heat \: transfer \: parameter
+$$
+<p>If the temperature difference between the wall and free-stream can be written as a polynomial (a fairly general assumption):<p>
+$$
+T_w - T_e = \Sigma_{j=1}^{p} a_j x^{j-1} = a_1 + a_2 x + a_3 x^2 + ... + a_p x^{p-1}
+$$
+<p>then the local Nusselt number is computed as follows:<p>
+$$
+\frac{q_w x}{k} = \sqrt{ \frac{1+m}{2} } G(Pr,\beta) Re^{1/2} \left[ a_1 + \Sigma_{j=1}^{p} \frac{4}{3} (j-1)a_{j}x^{j-1} \frac{\Gamma(4(j-1)/3) \Gamma(2/3)}{\Gamma(4(j-1)/3 + 2/3)} \right]
+$$
+$$
+Nu = \frac{q_w x}{k} / (T_w - T_e)
+$$
+<p>where<p>
+$$
+\Gamma() \: denotes \: the \: gamma \: function
+$$
+$$
+Nu = Nusselt \: number
+$$
+
+<p>If the boundary layer profile is desired then more attention is required which often leads to the use of finite-difference methods.<p>
+<p>Assure that all inputs and parameters use consistent units.
+<p>This block is capable of providing boundary layer solutions along the length of the surface given a 1-D array for x_M.<p>
+
+<font size="5" color="Blue"> Falkner-Skan (Tw-Te = Polynomial) Inputs:</font>
+<table border="1"> <tr><td>Falkner-Skan (Tw-Te = Polynomial) Inputs</td><td>Description</td></tr>
+    <tr><td>nu</td><td>Kinematic viscosity [1x1]</td></tr>
+    <tr><td>Uknown</td><td>Free-stream velocity at a known x (x_Uknown_M) [1x1]</td></tr>
+    <tr><td>a</td><td>Array of polynomial coefficients [a1 a2 a3 ... ap] to (Tw-Te) = a1 + a2*T + a3*T^2 + ... + ap*T^(p-1) [px1]</td></tr>
+</table>
+<br>
+<font size="5" color="Blue"> Falkner-Skan (Tw-Te = Polynomial) Outputs:</font>
+<table border="1"> <tr><td>Falkner-Skan (Tw-Te = Polynomial) Outputs</td><td>Description</td></tr>
+    <tr><td>y</td><td>Matrix of y positions for the hydrodynamic boundary layer with each column correponding to element of x [nxm]</td></tr>
+    <tr><td>u</td><td>Matrix of u(x,y) with rows corresponding to y and columns corresponding to x [nxm]</td></tr>
+    <tr><td>del</td><td>Array of boundary layer thickness corresponding to each x [mx1]</td></tr>
+    <tr><td>G</td><td>Falkner-Skan heat transfer parameter [mx1]</td></tr>
+    <tr><td>Nu</td><td>Local Nusselt number [mx1]</td></tr>
+</table>
+<br>
+<font size="5" color="Blue"> Falkner-Skan (Tw-Te = Polynomial) Masked Variables:</font>
+<table border="1"> <tr><td>Falkner-Skan (Tw-Te = Polynomial) Masked Variables</td><td>Description</td></tr>
+    <tr><td>Pr_M</td><td>Prandtl number [1x1]</td></tr>
+    <tr><td>beta_M</td><td>Pressure gradient variable [1x1]</td></tr>
+    <tr><td>x_Uknown_M</td><td>Position of a known freestream velocity in the profile. This is used to get K. Uknown = K*x_Uknown_M^m [1x1]</td></tr>
+    <tr><td>x_M</td><td>Position(s) along the surface [mx1]</td></tr>
+    <tr><td>n_M</td><td>Number of equally spaced y positions in the boundary layer profile [1x1]</td></tr>
+    <tr><td>imax_M</td><td>Maximum number of iterations for the solver [1x1]</td></tr>
+</table>
+<br>

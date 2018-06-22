@@ -1,0 +1,20 @@
+<script type="text/javascript"
+     src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+<font size="6" color="Magenta">TSAT: Air Properies - Heat Capacity Library Block</font>
+<br>
+<p>This function provides an estimate of the heat capacity of air given its temperature. The function uses empirical relations which are valid for dry air in the temperature range of 60K - 2000K (108R - 3600R) and pressures up to 2000MPa. The resource for this empirical correlations is: <p>
+<p>Lemmon, E., Jacobsen, R., Penoncello, S., and Friend, D., Thermodynamic Properties of Air and Mixtures of Nitrogen, Argon, and Oxygen From 60 to 2000K at pressure to 2000MPa, Journal of Physics Chemistry Reference Data, Vol. 29, No. 3, 2000
+<p>This function is capable of evaluating the heat capacity for various temperatures at the same time given an array of temperature inputs.
+<p>Units are clearly stated on the inport and outport so assure that your inputs are in the specified units and the output is properly converted to your desired units after the calculation.<p>
+
+<font size="5" color="Blue"> Air Properies - Heat Capacity Inputs:</font>
+<table border="1"> <tr><td> Air Properies - Heat Capacity Inputs</td><td>Description</td></tr>
+    <tr><td>T</td><td>Temperature of the air in degrees Rankine (R) (nx1)</td></tr>
+</table>
+<br>
+<font size="5" color="Blue"> Air Properies - Heat Capacity Outputs:</font>
+<table border="1"> <tr><td>Air Properies - Heat Capacity Outputs</td><td>Description</td></tr>
+    <tr><td>Cp</td><td>Heat capacity of the air in Btu/(slug-R) (nx1)</td></tr>
+</table>

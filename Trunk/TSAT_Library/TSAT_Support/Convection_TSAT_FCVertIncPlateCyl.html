@@ -1,0 +1,49 @@
+<script type="text/javascript"
+     src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+<font size="6" color="Magenta">TSAT: Vertical Plate/Cylinder or Inclined Plate Free Convection Library Block</font>
+<br>
+<p>Reference for the information in this help file: Incropera, F.P., and DeWitt, D.P., Fundamentals of Heat and Mass Transfer, John Wiley & Sons, New York, NY, 2002. Print. <p>
+<p>This block estimates the average Nusselt number of free convecting flow over an isothermal vertical or inclined flat plate, or an isothermal vertical cylinder. For inclined plates the correlation is only valid for the top surface of cold plates and bottom surface of hot plates. The bottom surface of cold plates and top surface of hot plates experience a complex 3-D flow that typically enhances heat transfer but is not able to be characterized by a generalized correlation. The following correlation is recommended for the entire range of Raleigh numbers (Ra):<p>
+$$
+Nu = \left[ 0.825 + \frac{0.387Ra^{1/6}}{\left[ 1 + \left( 0.492/Pr \right)^{9/16} \right]^{8/27}} \right]^{2}
+$$
+<p>The next correlation has slightly better accuracy for laminar flow
+$$
+Nu = 0.68 + \frac{0.670Ra^{1/4}}{\left[ 1 + \left( 0.492/Pr \right)^{9/16} \right]^{4/9}}
+$$
+<p>Subject to restriction:<p>
+$$
+Ra \leq 10^9 \: (laminar flow)
+$$
+<p>These equations are valid for vertical plates and vertical cylinders. For cylinders the following restriction should be enforced:<p>
+$$
+\frac{D}{L} \leq \frac{35}{Gr^{1/4}}
+$$
+<p>where D/L is the ratio of the cylinders diameter to it's length, and Gr is the Grashoff number (Ra/Pr). As can be seen it is better suited for longer cylinders with a smaller diameter. These equations can be used to approximate the average Nusselt number for inclined plates but only for one surface as mentioned before. In such a case the gravity, g, is replace by g*cos(Angle) where Angle is the inclination angle relative to the vertical axis in which gravity is acting. This adjustment makes the correlation good for angles between 0 and 60 degrees.
+
+<p>Note that these empirical correlation come from the following reference:<p>
+<p>S. W. Churchill, and H. H. S. Chu, Int. J. Heat Mass Transfer, 18, 1323, 1975.<p>
+<p>The characteristic length in the Rayliegh number should be the length of the plate or cylinder. Note that all fluid properties should be evaluated at film temperature (average of the bulk fluid and surface temperatures). This block is capable of performing multiple calculations given 1-D arrays of consistent size for the inputs and applicable parameters.<p>
+
+<font size="5" color="Blue"> Vertical Plate/Cylinder or Inclined Plate Free Convection Inputs:</font>
+<table border="1"> <tr><td>Vertical Plate/Cylinder or Inclined Plate Free Convection Inputs</td><td>Description</td></tr>
+    <tr><td>Ra</td><td>Rayliegh number [nx1]</td></tr>
+    <tr><td>Pr</td><td>Prandtl number [nx1]</td></tr>
+</table>
+<br>
+<font size="5" color="Blue"> Vertical Plate/Cylinder or Inclined Plate Free Convection Outputs:</font>
+<table border="1"> <tr><td>Vertical Plate/Cylinder or Inclined Plate Free Convection Outputs</td><td>Description</td></tr>
+    <tr><td>Nu</td><td>Average Nusselt number [nx1]</td></tr>
+    <tr><td>Validity</td><td>Variable indicating if the any of the applicable restriction were violated. This value will be 1 if this condition is viloated and 0 otherwise. [nx1]</td></tr>
+</table>
+<br>
+<font size="5" color="Blue"> Vertical Plate/Cylinder or Inclined Plate Free Convection Mask Variables:</font>
+<table border="1"> <tr><td>Vertical Plate/Cylinder or Inclined Plate Free Convection Mask Variables</td><td>Description</td></tr>
+    <tr><td>Corr_M</td><td>Variable indicating which correlation to use</td></tr>
+    <tr><td>PlateOrCyl_M</td><td>Variable indicating if a plate or a cylinder is being considered</td></tr>
+    <tr><td>InclineOrVert_M</td><td>Variable indicating if the plate is vertical or inclined (only applicable for plates)</td></tr>
+    <tr><td>DiamOverLen_M</td><td>The diameter to length ratio (D/L) of the cylinder (only applicable to cylinders) [nx1]</td></tr>
+</table>
+<br>

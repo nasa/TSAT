@@ -1,0 +1,23 @@
+<script type="text/javascript"
+     src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+<font size="6" color="Magenta">TSAT: Colebrook Correlation Library Block</font>
+<br>
+<p>This block approximates the friction factor for fully developed turbulent flow in a circular pipe using the Colebrook correlation. The correlation accounts for surface roughness. The Colebrook correlation is solved in this block using the secant root method. Parameters include surface roughness (e) and the diameter of the pipe (D). The ratio of these quanties (e/D) is what really matters in the calculation. As long as this ratio is correct the friction factor calculation will be valid.<p>
+<font size="5" color="Blue"> Colebrook Correlation Inputs:</font>
+<table border="1"> <tr><td> Colebrook Correlation Inputs</td><td>Description</td></tr>
+    <tr><td>Re</td><td>Reynolds number based on the pipe diameter [1x1]</td></tr>
+</table>
+<br>
+<font size="5" color="Blue"> Colebrook Correlation Outputs:</font>
+<table border="1"> <tr><td>Colebrook Correlation Outputs</td><td>Description</td></tr>
+    <tr><td>f</td><td>friction factor [1x1]</td></tr>
+    <tr><td>conv</td><td>Output is 1 if the iterative solver converged and 0 if it did not [1x1]</td></tr>
+</table>
+<br>
+<font size="5" color="Blue"> Colebrook Correlation Mask Variables: </font>
+<table border="1"> <tr><td> Colebrook Correlation Mask Variables</td><td>Description</td></tr>
+    <tr><td>e_M</td><td>Surface roughness (has units of length) [1x1]</td></tr>
+    <tr><td>D_M</td><td>Diameter of the pipe [1x1]</td></tr>
+</table>

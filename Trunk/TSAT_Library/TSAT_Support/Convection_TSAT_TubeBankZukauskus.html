@@ -1,0 +1,62 @@
+<script type="text/javascript"
+     src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+<font size="6" color="Magenta">TSAT: Tube Bank - Zukauskas Library Block</font>
+<br>
+<p>This block estimates the average Nusselt number for an entire bank of cylinderical tubes using a correlation proposed by Zukauskas.:<p>
+<p>A. Zukauskas, "Heat Transfer from Tubes in Cross Flow," in H.P. Hartnett and T.F. Irvine, Jr., Eds, Advanaces in Heat Transfer, Vol. 8, Academic Press, New York, 1972.<p>
+<p>The correlation is:<p>
+$$
+Nu = C_{2}C_{1}Re^{m}Pr^{0.36} \left( \frac{Pr}{Pr_{s}} \right)^{1/4}
+$$
+<p>where<p>
+$$
+Nu = Nusselt \: number, \: Re = Reynolds \: number, \: Pr = Prandtl \: number
+$$
+$$
+Pr_{s} = Prandtl \: number \: at \: surface \: temperature 
+$$
+<p>and the constants are given in the tables below. Note the St/SL is the ratio of the lengths separating the tubes in the transverse direction and longitudinal direction.<p>
+
+<font size="5" color="Blue"> C1 and m Constants:</font>
+<table border="1"> <tr><td> Configuraiton</td><td>Re</td><td>$$C_{1}$$</td><td>m</td></tr>
+    <tr><td>Aligned</td><td>10-100</td><td>0.8</td><td>0.4</td></tr>
+    <tr><td>Staggered</td><td>10-100</td><td>0.9</td><td>0.4</td></tr>
+    <tr><td>Aligned</td><td>100-1000</td><td>0.51</td><td>0.5</td></tr>
+    <tr><td>Staggered</td><td>100-1000</td><td>0.51</td><td>0.5</td></tr>
+    <tr><td>Aligned</td><td>1000-200000</td><td>0.27</td><td>0.63</td></tr>
+    <tr><td>Staggered (St/SL < 2)</td><td>1000-200000</td><td>$$0.35(St/SL)^{1/5}$$</td><td>0.6</td></tr>
+    <tr><td>Staggered (St/SL > 2)</td><td>1000-200000</td><td>0.4</td><td>0.6</td></tr>
+    <tr><td>Aligned</td><td>200000-2000000</td><td>0.021</td><td>0.84</td></tr>
+    <tr><td>Staggered</td><td>200000-2000000</td><td>0.022</td><td>0.84</td></tr>
+</table>
+<br>
+    
+<font size="5" color="Blue"> C2 Constant:</font>
+<table border="1"> <tr><td>Number of Rows, $$N_L$$</td><td>1</td><td>2</td><td>3</td><td>4</td><td>5</td><td>7</td><td>10</td><td>13</td><td>16</td><td>20</td></tr>
+    <tr><td>Aligned</td><td>0.7</td><td>0.8</td><td>0.86</td><td>0.9</td><td>0.92</td><td>0.95</td><td>0.97</td><td>0.98</td><td>0.99</td><td>1</td></tr>
+    <tr><td>Staggered</td><td>0.64</td><td>0.76</td><td>0.84</td><td>0.89</td><td>0.92</td><td>0.95</td><td>0.97</td><td>0.98</td><td>0.99</td><td>1</td></tr>
+</table>
+<br>
+
+<p>The tube bank may consist of rows of tubes that are aligned with each other or staggered. The Reynolds number (Re) should be calculated based on the diameter of the largest cylinder in the bank. The properties of the fluid should be evaluated at the mean of the fluid inlet and outlet temperatures with the exception of Prs which is the Prantl number (Pr) evaluated using the temperature of the surface of the tubes. If the surface temperature of each tube differs then a rough approximation could be possible by using the average surface temperature of all the tubes. The correlation is best suited for banks with 20 or more rows of tubes but this implemenation does consider adjustments for banks with less than 20 rows through the C2 coefficient. The correlation is subject to the following restricitons:<p>
+<p>The Reynolds number should be calculated based on the diameter of the sphere. Note that all fluid properrties should be evaluated at freestream temperature except for mus (the viscosity at the surface temperature). The correlation is subject to the following restrictions:<p>
+$$
+10 \leq Re \leq 2000000, \: 0.7 \leq Pr \leq 500
+$$
+<p>This block is capable of performing multiple Nusselt number approximations given 1-D input arrays of the same size.<p>
+    
+<font size="5" color="Blue"> Tube Bank - Zukauskas Inputs:</font>
+<table border="1"> <tr><td> Tube Bank - Zukauskas Inputs</td><td>Description</td></tr>
+    <tr><td>Re</td><td>Reynolds number (based on the diameter of the largest tube in the bank) [nx1]</td></tr>
+    <tr><td>Pr</td><td>Prandtl number [nx1]</td></tr>
+    <tr><td>Prs</td><td>Prandtl evaluated at the surface temperature [nx1]</td></tr>
+</table>
+<br>
+<font size="5" color="Blue"> Tube Bank - Zukauskas Outputs:</font>
+<table border="1"> <tr><td>Tube Bank - Zukauskas Outputs</td><td>Description</td></tr>
+    <tr><td>Nu</td><td>Average Nusselt number [nx1]</td></tr>
+    <tr><td>Validity</td><td>Variable indicating if the Re and Pr restictions are violated or not. The value of 1 if a violation is present and 0 otherwise. [nx1]</td></tr>
+</table>
+<br>

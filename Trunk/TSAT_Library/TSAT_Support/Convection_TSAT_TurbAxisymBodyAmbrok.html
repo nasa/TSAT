@@ -1,0 +1,53 @@
+<script type="text/javascript"
+     src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+<font size="6" color="Magenta">TSAT: Turbulent Convection on Axisymmetric Body w/ Varying Velocity and Temperature Library Block</font>
+<br>
+<p>Reference for the information in this help file: White, F.M., Viscous Fluid Flow 3rd Ed., McGraw Hill, New York, NY, 2006. Print. <p>
+<p>This block implements a simple and reliable theory developed by Ambrok (1957) that allows for the appsoximation of the local Stanton number of turbulent flow with a varying velocity and temperature profile along an axisymmetric body. Ambrok's Stanton number correlation comes from solving a modeled energy-integral equation so that the local Stanton number could be approximated by simple quadrature.<p>
+$$
+St = 0.0295 Pr^{-0.4} \frac{r_0^{0.25} \left( T_w - T_e \right)^{0.25} \mu^{0.2}}{\left[ \int_0^x r_0^{1.25} \left( T_w - T_e \right)^{1.25} \rho U dx \right]^{0.2}}
+$$
+<p>where<P>
+$$
+x = axial \: location \: along \: the \: body, \: r_0 = radius \: of \: the \: body
+$$
+$$
+Pr = Prandtl \: number, \: T_w = wall \: temperature, \: T_e = free-stream \: temperature
+$$
+$$
+U = free-stream \: velocity, \: \rho = density, \: \mu = dynamic \: viscosity
+$$
+<p>The Stanton number is then used to obtain the local Nusselt number.<p>
+$$
+Nu = St Re Pr
+$$
+<p>When the radius, r0(x), is constant the Stanton number should give a descent approximation for a 2-D body. When r0, U, and (Tw - Te) are constant the Stanton number correlation reduces to:
+$$
+St = 0.0295*Pr^{-0.4}Re^{-0.3}
+$$
+<p>which is nearly equal to the traditional Reynolds Analogy.<p>
+<p>Assure that all inputs and parameters use consistent units.
+<p>This block performs numerical integration and so it is important to have a sufficient number of points for good accuracy and the x array should start near 0 but not 0 as this would result in the denominator being equal to 0. Similaryly, no element of r0 should be equal to 0. It is important that all array parameters and inputs have the same number of elements.<p>
+
+<font size="5" color="Blue"> Turbulent Convection on Axisymmetric Body w/ Varying Velocity and Temperature Inputs:</font>
+<table border="1"> <tr><td>Turbulent Convection on Axisymmetric Body w/ Varying Velocity and Temperature Inputs</td><td>Description</td></tr>
+    <tr><td>U</td><td>Free-stream velocity [nx1]</td></tr>
+    <tr><td>mu</td><td>Dynamic viscosity [nx1]</td></tr>
+    <tr><td>rho</td><td>Fluid density [nx1]</td></tr>
+    <tr><td>Tw - Te</td><td>Temperature difference between the wall and free-stream [nx1]</td></tr>
+</table>
+<br>
+<font size="5" color="Blue"> Turbulent Convection on Axisymmetric Body w/ Varying Velocity and Temperature Outputs:</font>
+<table border="1"> <tr><td>Turbulent Convection on Axisymmetric Body w/ Varying Velocity and Temperature Outputs</td><td>Description</td></tr>
+    <tr><td>Nu</td><td>Local Nusselt number [mx1]</td></tr>
+</table>
+<br>
+<font size="5" color="Blue"> Turbulent Convection on Axisymmetric Body w/ Varying Velocity and Temperature Masked Variables:</font>
+<table border="1"> <tr><td>Turbulent Convection on Axisymmetric Body w/ Varying Velocity and Temperature Masked Variables</td><td>Description</td></tr>
+    <tr><td>Pr_M</td><td>Prandtl number [1x1]</td></tr>
+    <tr><td>x_M</td><td>Axial osition(s) along the surface [nx1]</td></tr>
+    <tr><td>r0_M</td><td>Radius of the axisymmetric body [nx1]</td></tr>
+</table>
+<br>

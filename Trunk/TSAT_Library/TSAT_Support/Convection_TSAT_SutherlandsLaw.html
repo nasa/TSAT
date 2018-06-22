@@ -1,0 +1,51 @@
+<script type="text/javascript"
+     src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+<font size="6" color="Magenta">TSAT: Sutherland's Law Library Block</font>
+<br>
+<p>This block implements Sutherlands law to approximate viscosity of a gas.<p>
+$$
+\mu = \mu_{ref} \left( \frac{T}{T_{ref}} \right)^{3/2} \frac{T_{ref}+S}{T+S}
+$$
+$$
+\mu = viscosity, \: mu_{ref} = reference \: viscosity
+$$
+$$
+T = temperature, \: T_{ref} = reference \: temperature
+$$
+$$
+S = the \: Sutherland \: temperature
+$$
+<p>Given appropriate parameters it is applicable to various gases. Parameters for some common gases are provided in the table below:<p>
+<font size="5" color="Blue"> Sutherland Equation Coefficients for Select Gases:</font>
+<table border="1"><tr><td>Gas</td><td>$$ T_{ref} $$ $$ (^oR) $$</td><td>$$ \mu_{ref} $$ $$ 10^{-7} \left( \frac{lb_f-sec}{ft^2} \right) $$</td><td>$$ S $$ $$ (^oR) $$</td></tr>
+    <tr><td>Air</td><td>524.07</td><td>3.8157</td><td>216.2162</td></tr>
+    <tr><td>Ammonia</td><td>527.67</td><td>2.0509</td><td>666.667</td></tr>
+    <tr><td>Carbon Dioxide</td><td>527.67</td><td>3.0910</td><td>432.4324</td></tr>
+    <tr><td>Carbon Monoxide</td><td>518.67</td><td>3.5922</td><td>212.6126</td></tr>
+    <tr><td>Hydrogen</td><td>528.93</td><td>1.8295</td><td>129.7297</td></tr>
+    <tr><td>Nitrogen</td><td>540.99</td><td>3.7196</td><td>200.0000</td></tr>
+    <tr><td>Oxygen</td><td>526.05</td><td>4.2146</td><td>228.8288</td></tr>
+    <tr><td>Sulfur Dioxide</td><td>528.57</td><td>2.6190</td><td>749.5495</td></tr>
+</table>
+<br>
+<p>Sutherland's law is based on kinematic theory of ideal gases and an idealized intermolecular-force potential. It typically gives results that are accurate within a few percent over a wide temperature range. The temperature range in which the equation is valid will be dependent on the gas and the paramters you are using. For hydrocarbon vapors and natural gases, the input temperature T is typically restricted to the a range from 0 to 1000degF. Be sure to observe the valid temperature range when using this block to assure accurate results. Units of the temperature and viscosity will be dependent on the units of the parameters chosen which should be consistent.<p>
+<p>This block is capable of performing multiple viscosity approximations given an array of temperatures.<p>
+    
+<font size="5" color="Blue"> Sutherland's Law Inputs:</font>
+<table border="1"> <tr><td> Sutherland's Law Inputs</td><td>Description</td></tr>
+    <tr><td>T</td><td>Temperature of the gas [nx1]</td></tr>
+</table>
+<br>
+<font size="5" color="Blue"> Sutherland's Law Outputs:</font>
+<table border="1"> <tr><td>Sutherland's Law Outputs</td><td>Description</td></tr>
+    <tr><td>mu</td><td>Viscosity of the gas [nx1]</td></tr>
+</table>
+<br>
+<font size="5" color="Blue"> Sutherland's Law Parameters Mask Variables: </font>
+<table border="1"> <tr><td> Sutherland's Law Parameters Mask Variables</td><td>Description</td></tr>
+    <tr><td>Tref_M</td><td>Reference temperature [1x1]</td></tr>
+    <tr><td>muref_M</td><td>Reference viscosity [1x1]</td></tr>
+    <tr><td>S_M</td><td>Sutherland temperature [1x1]</td></tr>
+</table>

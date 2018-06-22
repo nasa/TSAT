@@ -1,0 +1,114 @@
+<script type="text/javascript"
+     src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+<font size="6" color="Magenta">TSAT: Falkner-Skan (Tw-Te = Constant) Library Block</font>
+<br>
+<p>Reference for the information in this help file: White, F.M., Viscous Fluid Flow 3rd Ed., McGraw Hill, New York, NY, 2006. Print. <p>
+<p>This block implements the Falkner-Skan solution to an incompressible laminar-boundary-layer flow. It is a more general solution than the Blasius solution which is strictly for flat plates with no pressure gradient (i.e. the velocity U(x) = Constant). The Falkner-Skan solution generalizes the solution by allowing:<p>
+$$
+U(x) = Kx^m
+$$
+<p>where K is a m are constants. The pressure gradient (dp/dx) of the flow is expressed using the variable beta.<p>
+$$
+\beta = \frac{2m}{m+1}
+$$
+<p>A positive value implies a negative or favorable pressure gradient and a negative value implies a positive or unfavorable pressure gradient. Falkner-Skan flow can be analogous to flow around wedges and corners.<p>
+<font size="5" color="Blue"> Implications of the pressure gradient variable:</font>
+<table border="1"> <tr><td>Value</td><td>Physical Meaning</td></tr>
+    <tr><td>$$-2 \leq \beta < 0$$</td><td>Flow around an expansion corner of turning angle $$\beta*\pi/2$$</td></tr>
+    <tr><td>$$\beta = -0.19505$$</td><td>Onset of Separation</td></tr>
+    <tr><td>$$\beta = 0$$</td><td>Flat Plate (dp/dx = 0)</td></tr>
+    <tr><td>$$0 < \beta \leq 2$$</td><td>Flow against a wedge of half-angle $$\beta*\pi/2$$</td></tr>
+    <tr><td>$$\beta = 1$$</td><td>Plane stagnation point (180deg wedge)</td></tr>
+    <tr><td>$$\beta = 4$$</td><td>Doublet flow near a plane wall</td></tr>
+    <tr><td>$$\beta = 5$$</td><td>Doublet flow near a 90deg corner</td></tr>
+    <tr><td>$$\beta = \infty$$</td><td>Flow toward a point sink</td></tr>
+</table>
+<br>
+<p>As can be seen the value can imply various physical meanings. The Falkner-Skan code implemented within the block is capable of handling -0.19505 < beta < 10. However, to retain the physical meaning of a flow over a surface which captures scenarios from separation to stagnation, the beta is restricted to values between -0.19505 to 1. This is because the main interest is in these flow and values outside this range can complicate the dimensional solution.<p>
+<p>This block solves the hydrodynamic boundary layer problem and thermal boundary layer problem. Since they are uncoupled the hydrodynamic boundary layer is addressed first. A numerical solution is applied to solve the following ordinary differential equation:<p>
+$$
+f''' + ff'' + \beta \left(1 - f'^2 \right) = 0
+$$
+where ' indicates a derivative with respect to the non-dimensional variable:
+$$
+\eta = y \sqrt{\frac{m+1}{2} \frac{U(x)}{ \nu x}}
+$$
+<p>and
+$$
+x = position \: along \: the \: surface, \: y = position \: offset \: from \: the \: surface
+$$
+$$
+U = free-stream \: velocity, \: \nu = kinematic \: viscosity
+$$
+<p>Note that the non-dimensional dependent variable, eta, is the main reason why this function restricts the pressure gradient variable, beta. Observe that as beta approaches 2, m approaches infinity which makes eta approach infinity. If you consider for instance beta = 4, m =. -2, eta is complex. The falkner-Skan solution in these cases is still good but a different choice of eta must be made:<p>
+$$
+\eta = Cyx^a, \: \: m = 2a + 1
+$$
+<p>C must make eta dimensionless but is otherwise arbitrary. This is not handled here a so modifications would need to be made to address problems outside of the current scope. f, f', and f'' have there own meaning. f is the stream function, f' is non-dimensional velocity, and f'' is then related to the velocity gradient in the boundary layer.<p>
+$$
+f = \frac{\psi(x,y)}{\sqrt{\frac{2}{m+1} \nu x U(x)}}, \: \: \psi(x,y) = stream \: function
+$$
+$$
+f' = u(x,y)/U(x)
+$$
+<p>u(x,y) is the local velocity within the boundary layer. The boundary conditions include:
+$$
+f(0) = f'(0) = 0, \: \: f'(\infty) = 1
+$$
+<p>A problem is that f''(0) is not known apriori and so this block finds f''(0) iteratively by solving the ODE until f' --> 1 and f'' --> 0 as eta --> infinity. This is done using some known solutions to initialize the solver in conjunction with a bisection root approach.
+<p>The thermal boundary layer problem is valid for a wall with uniform temperature and constant free-stream temperature (Tw-Te = Constant). The ODE below is solved:<p>
+$$
+\Theta'' + Pr f \Theta' = 0
+$$
+<p>where<p>
+$$
+\Theta = \frac{T-T_e}{T_w-T_e}
+$$
+<p>The boundary conditions include:<p>
+$$
+\Theta(0) = 1, \: \: \Theta(\infty) = 0, \: \: \Theta'(0) = -G(Pr,\beta)
+$$
+$$
+G(Pr,\beta) = \left[ \int_{0}^{\infty} exp \left( -Pr \int_{0}^{\eta} f ds \right) d \eta \right]^{-1}
+$$
+<p>The local Nusselt number is:<p>
+$$
+Nu = \sqrt{\frac{m+1}{2}}GRe^{1/2}, \: \: Re = \frac{xU(x)}{ \nu }]
+$$
+<p>If Tw-Te is not a constant then the method of indicial solutions (superposition) can be used to approximate the local heat transfer but boundary layer profiles require more attention which leads to the use of finite-difference methods.<p>
+<p>The hydrodynamic and thermal boundary layer thicknesses are found based on the boundary layer solutions. The boundary layer thickness is taken to be the y at which u/U reaches 0.99 and the thermal boundary layer is taken to be the y at which (T-Te)/(Tw-Te) = 0.01.<p>
+<p>Assure that all inputs and parameters use consistent units.
+<p>This block is capable of providing boundary layer solutions along the length of the surface given a 1-D array for x_M.<p>
+
+<font size="5" color="Blue"> Falkner-Skan (Tw-Te = Constant) Inputs:</font>
+<table border="1"> <tr><td>Falkner-Skan (Tw-Te = Constant) Inputs</td><td>Description</td></tr>
+    <tr><td>nu</td><td>Kinematic viscosity [1x1]</td></tr>
+    <tr><td>Te</td><td>Free-stream temperature [1x1]</td></tr>
+    <tr><td>Tw</td><td>Wall temperature [1x1]</td></tr>
+    <tr><td>Uknown</td><td>Free-stream velocity at a known x (x_Uknown_M) [1x1]</td></tr>
+</table>
+<br>
+<font size="5" color="Blue"> Falkner-Skan (Tw-Te = Constant) Outputs:</font>
+<table border="1"> <tr><td>Falkner-Skan (Tw-Te = Constant) Outputs</td><td>Description</td></tr>
+    <tr><td>y</td><td>Matrix of y positions for the hydrodynamic boundary layer with each column correponding to element of x [nxm]</td></tr>
+    <tr><td>u</td><td>Matrix of u(x,y) with rows corresponding to y and columns corresponding to x [nxm]</td></tr>
+    <tr><td>del</td><td>Array of boundary layer thickness corresponding to each x [mx1]</td></tr>
+    <tr><td>yt</td><td>Matrix of y positions for the thermal boundary layer with each column correponding to element of x [nxm]</td></tr>
+    <tr><td>T</td><td>Array of temperature corresponding to every x. The same solution is valid for all x but yt will change [nx1]</td></tr>
+    <tr><td>delt</td><td>Array of thermal boundary layer thickness corresponding to each x [mx1]</td></tr>
+    <tr><td>G</td><td>Falkner-Skan heat transfer parameter [mx1]</td></tr>
+    <tr><td>Nu</td><td>Local Nusselt number [mx1]</td></tr>
+</table>
+<br>
+<font size="5" color="Blue"> Falkner-Skan (Tw-Te = Constant) Masked Variables:</font>
+<table border="1"> <tr><td>Falkner-Skan (Tw-Te = Constant) Masked Variables</td><td>Description</td></tr>
+    <tr><td>Pr_M</td><td>Prandtl number [1x1]</td></tr>
+    <tr><td>beta_M</td><td>Pressure gradient variable [1x1]</td></tr>
+    <tr><td>x_Uknown_M</td><td>Position of a known freestream velocity in the profile. This is used to get K. Uknown = K*x_Uknown_M^m [1x1]</td></tr>
+    <tr><td>x_M</td><td>Position(s) along the surface [mx1]</td></tr>
+    <tr><td>n_M</td><td>Number of equally spaced y positions in the boundary layer profile [1x1]</td></tr>
+    <tr><td>imax_M</td><td>Maximum number of iterations for the solver [1x1]</td></tr>
+</table>
+<br>

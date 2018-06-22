@@ -1,0 +1,69 @@
+<script type="text/javascript"
+     src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+<font size="6" color="Magenta">TSAT: Laminar Circular Tube Annulus Library Block</font>
+<br>
+<p>Reference for the information in this help file: Incropera, F.P., and DeWitt, D.P., Fundamentals of Heat and Mass Transfer, John Wiley & Sons, New York, NY, 2002. Print. <p>
+<p>This block provides the Nusselt number for fully developed laminar flow within a circular annulus tube. There are two options:<p>
+<p>(1) one side is insulated and the other has a constant temperature
+<p>(2) uniform heat flux is maintained at both surfaces
+<p>The block outputs are the Nusselt numbers (Nu) associated with the inner and outer surfaces. In the case (1) the Nusselt number are simply a function of the inner diameter to outer diameter ratio (Di/Do) and the result is interpolated using data from the following table:<p>
+<font size="5" color="Blue"> Nu for fully developed laminar flow for option (1):</font>
+<table border="1"> <tr><td>$$D_i/D_o$$</td><td>$$Nu_i$$</td><td>$$Nu_o$$</td></tr>
+    <tr><td>0</td><td>--</td><td>3.66</td></tr>
+    <tr><td>0.05</td><td>17.46</td><td>4.06</td></tr>
+    <tr><td>0.1</td><td>11.56</td><td>4.11</td></tr>
+    <tr><td>0.25</td><td>7.37</td><td>4.23</td></tr>
+    <tr><td>0.5</td><td>5.74</td><td>4.43</td></tr>
+    <tr><td>1</td><td>4.86</td><td>4.86</td></tr>
+</table>
+<br>
+<p>Note the Nui is the Nusselt number for the inner surface and Nuo is the Nusselt number for the outer surface.<p>
+<p>In case (2) the solutions involves an iterative solver whose solution (the ratio of heat flux's qi/qo, (qratio)) and a parameter indicating convergence of the solution (conv) is output. This case also requires additional inputs which include the temperature of both surfaces (Tsi and Tso) and the mean temperature of the fluid (Tm). The following equations are used to solve for the Nusselt number: <p>
+$$
+q_{i}'' = h_i \left( T_{s,i} - T_{m} \right), \: \: q_{o}'' = h_o \left( T_{s,o} - T_{m} \right) \rightarrow \frac{q_{i}''}{q_{o}''} = \frac{Nu_{i} \left( T_{s,i} - T_m \right)}{Nu_{o} \left( T_{s,o} - T_m \right)}
+$$
+$$
+Nu_{i} = \frac{Nu_{ii}}{1 - \left( q_{o}''/q_{i}'' \right)\theta_{i}^*}, \: \: Nu_{o} = \frac{Nu_{oo}}{1 - \left( q_{i}''/q_{o}'' \right)\theta_{o}^*}
+$$
+$$
+\rightarrow \frac{q_{i}''}{q_{o}''} - \frac{Nu_{ii}}{Nu_{oo}} \frac{1 - \left( q_{i}''/q_{o}'' \right)\theta_{o}^*}{1 - \left( q_{o}''/q_{i}'' \right)\theta_{i}^*} \frac{\left( T_{s,i} - T_m \right)}{\left( T_{s,o} - T_m \right)} = 0 \rightarrow \: solve \: for \: \frac{q_{i}''}{q_{o}''}
+$$
+<p>Once the heat flux ratio is known it can be plugged back into the equations to solve for Nui and Nuo. The Influence coefficients are given in the following table: <p>
+<font size="5" color="Blue"> Influence coefficients for option (2):</font>
+<table border="1"> <tr><td>$$D_i/D_o$$</td><td>$$Nu_{ii}$$</td><td>$$Nu_{oo}$$</td><td>$$\theta_{i}^*$$</td><td>$$\theta_{o}^*$$</td></tr>
+    <tr><td>0</td><td>--</td><td>4.364</td><td>infinity</td><td>0</td></tr>
+    <tr><td>0.05</td><td>17.81</td><td>4.792</td><td>2.18</td><td>0.0294</td></tr>
+    <tr><td>0.1</td><td>11.91</td><td>4.834</td><td>1.383</td><td>0.0562</td></tr>
+    <tr><td>0.2</td><td>8.499</td><td>4.833</td><td>0.905</td><td>0.1041</td></tr>
+    <tr><td>0.4</td><td>6.583</td><td>4.979</td><td>0.603</td><td>0.1823</td></tr>
+    <tr><td>0.6</td><td>5.912</td><td>5.009</td><td>0.473</td><td>0.2455</td></tr>
+    <tr><td>0.8</td><td>5.58</td><td>5.24</td><td>0.401</td><td>0.299</td></tr>
+    <tr><td>1</td><td>5.385</td><td>5.385</td><td>0.346</td><td>0.346</td></tr>
+</table>
+<br>
+<p>Note that this solution assumes that the thermal conductivity used in the Nusselt number calculation for both surfaces is the same based on the mean temperature of the fluid. Note that the hydraulic diameter, Do - Di in this case, should be used to calculate the convective heat transfer coefficient using the Nusselt numbers from this block. For turbulent flows a circular tube correlation, such as the Dittus-Boelter equation, can be used to get a first approximation of the Nusselt number for both surfaces assuming they are equal and the hydraulic diameter should be used. This block is capable of performing multiple Nusselt number approximations given 1-D arrays of the inputs and parameters of consistent dimensions. Also note that the temperature units of the inputs do not matter as long as they are all consistent. What really matters is the ratio (Tsi-Tm)/(Tso-Tm).<p>
+
+<font size="5" color="Blue"> Laminar Circular Tube Annulus Inputs:</font>
+<table border="1"> <tr><td>Laminar Circular Tube Annulus Inputs</td><td>Description</td></tr>
+    <tr><td>Tsi</td><td>Temperature of the inner surface [nx1] (only applicable for case (2))</td></tr>
+    <tr><td>Tso</td><td>Temperature of the outer surface [nx1] (only applicable for case (2))</td></tr>
+    <tr><td>Tm</td><td>Mean Temperature of the fluid [nx1] (only applicable for case (2))</td></tr>
+</table>
+<br>
+<font size="5" color="Blue"> Laminar Circular Tube Annulus Outputs:</font>
+<table border="1"> <tr><td>Laminar Circular Tube Annulus Outputs</td><td>Description</td></tr>
+    <tr><td>Nui</td><td>Nusselt number on the inner surface [nx1]</td></tr>
+    <tr><td>Nuo</td><td>Nusselt number on the outer surface [nx1]</td></tr>
+    <tr><td>qratio</td><td>Ratio of heat flux for the inner surface to the heat flux for the outer surface [nx1] (only applicable for case (2))</td></tr>
+    <tr><td>conv</td><td>Variable indicating if the iterative solver for qratio found a solution. The value will be 1 if it converged and 0 otherwise [nx1] (only applicable for case (2))</td></tr>
+</table>
+<br>
+<font size="5" color="Blue"> Laminar Circular Tube Annulus Masked Variables:</font>
+<table border="1"> <tr><td>Laminar Circular Tube Annulus Masked Variables</td><td>Description</td></tr>
+    <tr><td>Scenario_M</td><td>Variable indicating the heat transfer scenario (i.e. case (1) or case (2))</td></tr>
+    <tr><td>DioDo_M</td><td>Ratio of the inner surface diameter to the outer surface diameter (Di/Do). This value should be between 0 and 1. [nx1]</td></tr>
+    <tr><td>Scenario_M</td><td>Block name - used for warning/error reporting (hidden parameter)</td></tr>
+</table>
+<br>
